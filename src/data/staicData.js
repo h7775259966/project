@@ -70,7 +70,6 @@ export const hospitalTableCols = [
 		options: [
 			{
 				label: '自行处理',
-				// 这里的value字段我不确定 后期根据实际修改就可以了
 				value: '0'
 			},
 			{
@@ -88,7 +87,7 @@ export const hospitalTableCols = [
 	},
 	{
 		label: '备注',
-		prop: 'remark',
+		prop: 'remarks',
 		expand: true,
 		type: 'input',
 		edit: true
@@ -151,7 +150,7 @@ export const officeTableCols = [
 	},
 	{
 		label: '所属部门',
-		prop: 'departmentId',
+		prop: 'departmentName',
 		type: 'select',
 		edit: true
 	},
@@ -198,13 +197,13 @@ export const nurseTableCols = [
 	},
 	{
 		label: '所属部门',
-		prop: 'departmentId',
+		prop: 'departmentName',
 		type: 'select',
 		edit: true
 	},
 	{
 		label: '所属科室',
-		prop: 'officeId',
+		prop: 'officeName',
 		type: 'select',
 		edit: true
 	},
@@ -251,10 +250,11 @@ export const collectTableCols = [
 	},
 	{
 		label: '所属医院',
-		prop: 'hospitalId',
+		prop: 'hospitalName',
 		type: 'select',
 		edit: true
 	},
+	
 	{
 		label: '备注',
 		prop: 'remarks',
@@ -493,3 +493,49 @@ export const violationStandardTableCols = [
 		prop: 'operation'
 	}
 ]
+//违规检查
+export const violationExamineTableCols = [
+	{
+		label: '违规单位',
+		prop: 'hospitalId',
+		search: true,
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '录入时间',
+		prop: 'writeTime',
+		edit: true,
+		formatter: function (row, column) {
+            var date = row[column.property];
+            if (date == undefined) {
+                return '';
+            }
+
+            return moment(date).format('YYYY-MM-DD HH:mm:ss');
+        },
+	},
+	{
+		label: '处置方式',
+		prop: 'way',
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '违规内容',
+		prop: 'content',
+		type: 'input',
+		edit: true,
+	},
+	{
+		label: '状态',
+		prop: 'status',
+		edit: true,
+	},
+	{
+		label: '操作',
+		prop: 'operation'
+	}
+]
+
+

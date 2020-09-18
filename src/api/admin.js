@@ -102,7 +102,8 @@ export function deleteOffice(id) {
 
 export function allOffice() {
 	return request({
-		url: `api/office/all`,
+		url: `api/office/all/`,
+		// url: `api/office/findByDepartmentId/${departmentId}`,
 		method: 'get'
 	})
 }

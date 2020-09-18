@@ -39,7 +39,7 @@
 		</e-table>
 		<!-- 编辑框 -->
 		<el-dialog title="添加" :visible.sync="editVisible" width="30%">
-			<el-form ref="form" :model="form" label-width="70px">
+			<el-form ref="form" :model="form" label-width="70px" >
 				<el-form-item prop="headline" label="标题"
 				:rules="[
 					{ required: true, message: '请输入标题', trigger: 'blur' },
@@ -95,11 +95,11 @@ import moment from 'moment';
 import { addNoticeTableURL, addNotice, deleteNotice, editNotice} from '@/api/notice';
 import ETable from '@/components/common/ETable';
 import {noticeTableCols} from '@/data/staicData';
-import Timecom from '../../Base/time';
+
 export default {
 	components: {
 		ETable,
-		Timecom
+		
 	},
 	props: {
 		kind: {

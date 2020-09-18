@@ -9,8 +9,13 @@
             active-text-color="#20a0ff"
             unique-opened
             router
+            :default-openeds="['1', '3']"
         >
-            <template v-for="item in items">
+         <!-- <el-submenu index="1">
+              <template slot="title"><i class="el-icon-first-aid-kit"></i>医废监测</template>
+              
+         </el-submenu> -->
+         <template v-for="item in items">
                 <template v-if="item.subs">
                     <el-submenu :index="item.index" :key="item.index">
                         <template slot="title">
@@ -45,6 +50,7 @@
                     </el-menu-item>
                 </template>
             </template>
+           
         </el-menu>
     </div>
 </template>
@@ -61,11 +67,7 @@ export default {
                     index: 'first',
                     title: '首页'
                 },
-                {
-                    icon: 'el-icon-edit',
-                    index: 'admin',
-                    title: '录入管理'
-                },
+                
                 {
                     icon: 'el-icon-s-operation',
                     index: 'chaxun',
@@ -350,6 +352,11 @@ export default {
                 {
                     icon: 'el-icon-question',
                     index: 'help',
+                    title: '系统帮助'
+                },
+                {
+                    icon: 'el-icon-question',
+                    index: 'aaa',
                     title: '系统帮助'
                 },
             ]

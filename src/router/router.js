@@ -16,11 +16,19 @@ const router = new Router({
       console.log('路由-前置-钩子')
       next()
     }
-  }, {
+  }, 
+  {
     path: '/index',
     name: 'index',
     component: Index,
-  }, {
+  }, 
+  //录入管理
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import('../views/admin/Admin.vue'),
+  }, 
+  {
     path: '/home',
     component: Home,
     meta: { title: '首页' },
@@ -29,11 +37,6 @@ const router = new Router({
         path: '/first',
         component: () => import('../components/page/index/Index.vue'),
         meta: { title: '系统首页' }
-      },
-      {
-        path: '/admin',
-        component: () => import('../components/page/admin/Admin.vue'),
-        meta: { title: '录入管理' }
       },
       //自定义查询
       {
@@ -287,6 +290,12 @@ const router = new Router({
         component: () => import('../components/page/help/Help.vue'),
         meta: { title: '系统帮助' }
       },
+      //系统帮助
+      {
+        path: '/aaa',
+        component: () => import('../components/page/aaa/aaa.vue'),
+        meta: { title: '系统帮助' }
+      }
     ]
   },
 

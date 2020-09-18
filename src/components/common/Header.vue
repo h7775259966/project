@@ -11,24 +11,30 @@
         </div>
         <div class="header-right">
             <div class="header-user-con">
+                <!--标题栏按钮 -->
+                <div>
+                    <el-button type="primary" icon="el-icon-edit" @click="input" >
+                        录入管理  
+                    </el-button>
+                    <el-button type="primary" icon="el-icon-s-data" @click="monitor" >
+                        监测中心  
+                    </el-button>
+                    <el-button type="primary" icon="el-icon-switch-button" @click="loginout" >
+                        退出
+                    </el-button>
+                </div>
                 <!-- 全屏显示 -->
                 <div class="btn-fullscreen" @click="handleFullScreen">
                     <el-tooltip effect="dark" :content="fullscreen?`取消全屏`:`全屏`" placement="bottom">
                         <i class="el-icon-rank"></i>
                     </el-tooltip>
                 </div>
-                <!-- 用户名下拉菜单 -->
-                <el-dropdown class="user-name" trigger="click" @command="handleCommand">
-                    <span class="el-dropdown-link">你好，
-                        {{username}}
-                        <i class="el-icon-caret-bottom"></i>
-                    </span>
-                    <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>修改密码</el-dropdown-item>
-                        <el-dropdown-item divided command="jiance">监测中心</el-dropdown-item>
-                        <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
-                    </el-dropdown-menu>
-                </el-dropdown>
+                
+                <div>
+                    <span class="el-dropdown-link" >你好, {{username}} </span> 
+                </div>
+               
+               
             </div>
         </div>
     </div>
@@ -51,17 +57,24 @@ export default {
         }
     },
     methods: {
-        // 用户名下拉菜单选择事件
-        handleCommand(command) {
-            if (command == 'loginout') {
-                localStorage.removeItem('ms_username');
-                this.$router.push('/');
-                //清除账号和密码
-            }else if(command == 'jiance'){
-                localStorage.removeItem('ms_username');
-                this.$router.push('/index');
-            }
+        // 进入录入管理
+        input(){
+            this.$router.push('/admin');
         },
+        //返回监测中心
+        monitor(){
+            this.$router.push('/index');
+        },
+        // 退出登录
+        loginout(){
+            //清除账号和密码
+            localStorage.removeItem('ms_username');
+            this.$router.push('/');
+        },
+        // // 用户名下拉菜单选择事件
+        // handleCommand(command) {
+           
+        // },
         // 侧边栏折叠
         collapseChage() {
             this.collapse = !this.collapse;
@@ -179,6 +192,7 @@ export default {
 }
 .el-dropdown-link {
     color: #fff;
+    font-size: 16px;
     cursor: pointer;
 }
 .el-dropdown-menu__item {

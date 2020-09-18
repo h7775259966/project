@@ -40,11 +40,13 @@
 
 <script>
 import SearchParams from '../Base/searchParams';
+import Time from '../Base/time';
 import request from '../../utils/request.js';
 export default {
 	name: 'ETable',
 	components: {
-		SearchParams
+		SearchParams,
+		Time
 	},
 	props: {
 		showOperation: {

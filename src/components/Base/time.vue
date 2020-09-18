@@ -13,7 +13,7 @@
       					value-format="yyyy-MM-dd"
 						placeholder="选择日期时间">
 				</el-date-picker>
-				<!-- <el-date-picker
+				<el-date-picker
 						v-if="currentSearchParamsItem.type === 'daterange'"
 						v-model="paramsEntity[currentSearchParamsItem.prop]"
 						type="daterange"
@@ -24,7 +24,7 @@
       					end-placeholder="结束日期"
       					:picker-options="pickerOptions"
 						placeholder="选择日期时间">
-				</el-date-picker> -->
+				</el-date-picker>
 			</template>
 			<el-button type="primary" size="small" class="el-icon-search" @click="search"></el-button>
 		</div>
