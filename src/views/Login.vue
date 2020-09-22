@@ -9,7 +9,8 @@
                 <el-form-item class="input-box" prop="password">
                     <span class="input-icon icon-password"></span>
                     <input class="input-text" type="password" placeholder="请输入密码(随便填)" v-model="param.password"
-                        @keyup.enter.native="submitForm()" />
+                    />
+                    <!--  @keyup.enter.native="submitForm()" -->
                 </el-form-item>
                 <button class="login-btn" type="button" @click="submitForm()">登 录</button>
             </el-form>

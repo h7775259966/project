@@ -333,57 +333,7 @@ export const noticeTableCols = [
 	}
 ]
 
-//资料上报
-export const planTableCols = [
-	{
-		label: '标题',
-		prop: 'headline',
-		search: true,
-		type: 'input',
-		edit: true
-	},
-	{
-		label: '发布人',
-		prop: 'issuer',
-		search: true,
-		type: 'input',
-		edit: true
-	},
-	{
-		label: '撰稿人',
-		prop: 'writer',
-		type: 'input',
-		edit: true
-	},
-	{
-		label: '发布机构',
-		prop: 'unit',
-		type: 'input',
-		edit: true
-	},
-	{
-		label: '发布时间',
-		prop: 'writeTime',
-		// formatter: (r, w) => moment(r[w]).format('YYYY-MM-DD HH:mm:ss')
-		formatter: function (row, column) {
-            var date = row[column.property];
-            if (date == undefined) {
-                return '';
-            }
 
-            return moment(date).format('YYYY-MM-DD HH:mm:ss');
-        },
-	},
-	{
-		label: '发布状态',
-		prop: 'status',
-		edit: true
-	},
-	{
-		label: '操作',
-		prop: 'operation'
-	}
-]
 
 //预警推送
 export const warnpushTableCols = [
@@ -431,7 +381,7 @@ export const violationStandardTableCols = [
 		prop: 'violationStandardName',
 		search: true,
 		type: 'input',
-		edit: true
+		
 	},
 	{
 		label: '处罚方式',

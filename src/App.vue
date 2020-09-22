@@ -1,7 +1,10 @@
 <template>
     <div id="app">
         <router-view></router-view>
+
+        
     </div>
+
 </template>
 
 <style lang="less">
@@ -161,18 +164,7 @@ a {
     height: 45px;
 }
 
-.el-upload--text {
-    background-color: #fff;
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    box-sizing: border-box;
-    width: 360px;
-    height: 180px;
-    text-align: center;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
+
 
 .el-upload--text .el-icon-upload {
     font-size: 67px;

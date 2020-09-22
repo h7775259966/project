@@ -25,3 +25,11 @@ export function deleteExamine(id) {
 		method: 'delete'
 	})
 }
+//查询
+export function checkExamine(id,data) {
+	return request({
+		url: `api/violationExamine/get/${id}`,
+		method: 'get',
+		data
+	})
+}

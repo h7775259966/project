@@ -13,8 +13,8 @@
             <div class="header-user-con">
                 <!--标题栏按钮 -->
                 <div>
-                    <el-button type="primary" icon="el-icon-edit" @click="input" >
-                        录入管理  
+                    <el-button type="primary" icon="el-icon-s-custom" @click="input" >
+                        后台管理  
                     </el-button>
                     <el-button type="primary" icon="el-icon-s-data" @click="monitor" >
                         监测中心  

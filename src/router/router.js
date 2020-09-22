@@ -13,7 +13,7 @@ const router = new Router({
     name: 'login',
     component: Login,
     beforeEnter: (to, from, next) => {
-      console.log('路由-前置-钩子')
+      // console.log('路由-前置-钩子')
       next()
     }
   }, 
@@ -85,7 +85,20 @@ const router = new Router({
       {
         path: '/inspect',
         component: () => import('../components/page/Inspection/Inspect.vue'),
-        meta: { title: '违规检查' }
+        meta: { title: '违规检查' },
+      },
+      //点击新增按钮进入违规录入
+      {
+        path:'/addone',
+        component: () => import('../components/page/Inspection/components/Addone.vue'),
+        meta: { title: '违规录入' },
+      },
+      //违规查看VioSee
+      {
+        path:'/VioSee',
+        name:'VioSee',
+        component: () => import('../components/page/Inspection/components/Viosee.vue'),
+        meta: { title: '违规查看' },
       },
       {
         path: '/history',
@@ -290,12 +303,7 @@ const router = new Router({
         component: () => import('../components/page/help/Help.vue'),
         meta: { title: '系统帮助' }
       },
-      //系统帮助
-      {
-        path: '/aaa',
-        component: () => import('../components/page/aaa/aaa.vue'),
-        meta: { title: '系统帮助' }
-      }
+      
     ]
   },
 
@@ -303,16 +311,21 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => { /* 全局前置钩子 */
-  console.log('全局-前置-钩子')
+  // console.log('全局-前置-钩子')
   next()
 })
 router.beforeResolve((to, from, next) => { /* 全局解析守卫 */
-  console.log('全局-解析-守卫')
+  // console.log('全局-解析-守卫')
   next()
 })
 router.afterEach((to, from) => { /* 全局后置钩子 */
-  console.log('全局-后置-钩子')
+  // console.log('全局-后置-钩子')
 })
 
+
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 export default router

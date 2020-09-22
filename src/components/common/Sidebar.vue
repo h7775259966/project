@@ -354,11 +354,7 @@ export default {
                     index: 'help',
                     title: '系统帮助'
                 },
-                {
-                    icon: 'el-icon-question',
-                    index: 'aaa',
-                    title: '系统帮助'
-                },
+                
             ]
         };
     },

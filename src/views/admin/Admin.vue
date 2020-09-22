@@ -1,23 +1,24 @@
 <template>
     <div class="crumbs">
-		<el-tabs v-model="activeName" type="border-card">
-			<el-tab-pane label="医院管理" name="first">
-				<Hospital />
-			</el-tab-pane>
-			<el-tab-pane label="部门管理" name="second">
-				<Department />
-			</el-tab-pane>
-			<el-tab-pane label="科室管理" name="third">
-				<Office />
-			</el-tab-pane>
-			<el-tab-pane label="护士管理" name="fourth">
-				<Nurse />
-			</el-tab-pane>
-			<el-tab-pane label="收集人管理" name="fifth">
-				<Collect />
-			</el-tab-pane>
-		</el-tabs>
-	</div>
+		<Button />
+        <el-tabs v-model="activeName" type="border-card">
+            <el-tab-pane label="医院管理" name="first">
+                <Hospital />
+            </el-tab-pane>
+            <el-tab-pane label="部门管理" name="second">
+                <Department />
+            </el-tab-pane>
+            <el-tab-pane label="科室管理" name="third">
+                <Office />
+            </el-tab-pane>
+            <el-tab-pane label="护士管理" name="fourth">
+                <Nurse />
+            </el-tab-pane>
+            <el-tab-pane label="收集人管理" name="fifth">
+                <Collect />
+            </el-tab-pane>
+        </el-tabs>
+    </div>
 </template>
 
 <script>
@@ -26,20 +27,28 @@ import Department from './components/department';
 import Office from './components/office';
 import Nurse from './components/nurse';
 import Collect from './components/collect';
+import Button from '../components/button'
 export default {
-	components: {
-		Hospital,
-		Department,
-		Office,
-		Nurse,
-		Collect
-	},
+    components: {
+        Hospital,
+        Department,
+        Office,
+        Nurse,
+		Collect,
+		Button
+    },
     data() {
         return {
-			activeName: 'first',
+            activeName: 'first',
+            activeClass: 'one'
         };
-	},
-}
+    },
+    methods: {
+        back() {
+            this.$router.push('/first');
+        }
+    }
+};
 </script>
 
 <style scoped>

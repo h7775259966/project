@@ -1,6 +1,6 @@
 <template>
     <div>
-		<e-table ref="collectTable" :dataOrigin="dataOrigin" :tableCols="tableColList" :showOperation="true" >
+		<e-table ref="collectTable" :dataOrigin="dataOrigin" :tableCols="tableColList" :showOperation="true">
 			<template #operationArea>
 				<el-button type="primary" @click="add">新增</el-button>
 			</template>
