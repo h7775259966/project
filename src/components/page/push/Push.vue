@@ -17,7 +17,6 @@
 					class="red"
 					@click="handleDelete(scope.rowData)"
 				>删除</el-button>
-			
 			</template>
 		</e-table>
 		
