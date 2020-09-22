@@ -14,11 +14,18 @@ export function addDict(data){
 }
 
 //删除
+<<<<<<< HEAD
 export function delDict(id){
     return request({
         url:`api/dict/del/${id}`,
         method:'delete',
         
+=======
+export function delDict(id,data){
+    return request({
+        url:`api/dict/del/${id}`,
+        method:'delete'
+>>>>>>> 8628a9bac661615080844b63f5aa4834a0644125
     })
 }
 
@@ -26,8 +33,12 @@ export function delDict(id){
 export function editDict(id,data){
     return request({
         url:`api/dict/edit/${id}`,
+<<<<<<< HEAD
         method:'put',
         data
+=======
+        method:'put'
+>>>>>>> 8628a9bac661615080844b63f5aa4834a0644125
     })
 }
 

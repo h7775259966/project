@@ -354,11 +354,19 @@ export default {
                     index: 'help',
                     title: '系统帮助'
                 },
+<<<<<<< HEAD
                 {
                     icon: 'el-icon-question',
                     index: 'zidian',
                     title: '数据字典'
                 },
+=======
+                                {
+                    icon: 'el-icon-document',
+                    index: 'zidian',
+                    title: '数据字典'
+                }
+>>>>>>> 8628a9bac661615080844b63f5aa4834a0644125
                 
             ]
         };
