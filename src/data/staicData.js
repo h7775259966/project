@@ -488,4 +488,130 @@ export const violationExamineTableCols = [
 	}
 ]
 
+//资料上报 上报计划
+export const planTableCols = [
+	{
+		label: '计划名称',
+		prop: 'planName',
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '发起时间',
+		prop: 'writeTime',
+		// formatter: (r, w) => moment(r[w]).format('YYYY-MM-DD HH:mm:ss')
+		formatter: function (row, column) {
+            var date = row[column.property];
+            if (date == undefined) {
+                return '';
+            }
+
+            return moment(date).format('YYYY-MM-DD HH:mm:ss');
+        },
+	},
+	{
+		label: '上报内容',
+		prop: 'content',
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '上报医院',
+		prop: 'hospitalId',
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '完成数',
+		prop: 'finishNumber',
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '未完成数',
+		prop: 'unfinishNumber',
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '状态',
+		prop: 'status',
+		type: 'input',
+		edit: true
+	},
+
+	{
+		label: '备注',
+		prop: 'remark',
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '操作',
+		prop: 'operation'
+	}
+]
+
+export const InformationReporting=[
+	{
+		label:'计划名称',
+		prop:'planName',
+		type:'input',
+	},
+	{
+		label:'发布单位',
+		prop:'hospitalName',
+		type:'input',
+	},
+	{
+		label: '发起时间',
+		prop: 'writeTime',
+		// formatter: (r, w) => moment(r[w]).format('YYYY-MM-DD HH:mm:ss')
+		formatter: function (row, column) {
+            var date = row[column.property];
+            if (date == undefined) {
+                return '';
+            }
+
+            return moment(date).format('YYYY-MM-DD HH:mm:ss');
+        },
+	},
+	{
+		label:'上报内容',
+		prop:'content',
+		type:'input',
+	},
+	{
+		label:'状态',
+		prop:'status',
+		type:'input',
+	},
+
+
+
+]
+
+// 数据字典
+export const dataDictionarys=[
+	{
+		label:'状态归属',
+		prop:'dictApi',
+		type: 'input',
+	},
+	{
+		label:'状态名称',
+		prop:'dictLabel',
+		type: 'select',
+	},
+	{
+		label:'状态值',
+		prop:'dictValue',
+		type: 'input',
+	},
+	{
+		label:'备注',
+		prop:'remark',
+		type: 'input',
+	}
+]
 
