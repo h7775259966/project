@@ -24,7 +24,6 @@
                         class="red"
                     >查看</el-button>
                 </router-link>
-
                 <el-button
                     type="text"
                     icon="el-icon-delete"

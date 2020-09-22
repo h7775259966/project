@@ -16,18 +16,18 @@ const router = new Router({
       // console.log('路由-前置-钩子')
       next()
     }
-  }, 
+  },
   {
     path: '/index',
     name: 'index',
     component: Index,
-  }, 
+  },
   //录入管理
   {
     path: '/admin',
     name: 'admin',
     component: () => import('../views/admin/Admin.vue'),
-  }, 
+  },
   {
     path: '/home',
     component: Home,
@@ -89,14 +89,14 @@ const router = new Router({
       },
       //点击新增按钮进入违规录入
       {
-        path:'/addone',
+        path: '/addone',
         component: () => import('../components/page/Inspection/components/Addone.vue'),
         meta: { title: '违规录入' },
       },
       //违规查看VioSee
       {
-        path:'/VioSee',
-        name:'VioSee',
+        path: '/VioSee',
+        name: 'VioSee',
         component: () => import('../components/page/Inspection/components/Viosee.vue'),
         meta: { title: '违规查看' },
       },
@@ -303,7 +303,13 @@ const router = new Router({
         component: () => import('../components/page/help/Help.vue'),
         meta: { title: '系统帮助' }
       },
-      
+      //数据字典
+      {
+        path: '/zidian',
+        component: () => import('../components/page/dictionaries/Zidian.vue'),
+        meta: { title: '数据字典' }
+      },
+
     ]
   },
 

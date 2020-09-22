@@ -26,12 +26,12 @@ export const hospitalTableCols = [
 		prop: 'createDate',
 		// formatter: (r, w) => moment(r[w]).format('YYYY-MM-DD HH:mm:ss')
 		formatter: function (row, column) {
-            var date = row[column.property];
-            if (date == undefined) {
-                return '';
-            }
-            return moment(date).format('YYYY-MM-DD HH:mm:ss');
-        },
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
 	},
 	{
 		label: '科室数',
@@ -66,7 +66,7 @@ export const hospitalTableCols = [
 		prop: 'processingMode',
 		expand: true,
 		edit: true,
-		type:'select',
+		type: 'select',
 		options: [
 			{
 				label: '自行处理',
@@ -99,7 +99,7 @@ export const hospitalTableCols = [
 		type: 'img',
 		edit: true
 	},
-	
+
 	{
 		label: '操作',
 		prop: 'operation'
@@ -126,13 +126,13 @@ export const departmentTableCols = [
 		prop: 'createDate',
 		// formatter: (r, w) => moment(r[w]).format('YYYY-MM-DD HH:mm:ss')
 		formatter: function (row, column) {
-            var date = row[column.property];
-            if (date == undefined) {
-                return '';
-            }
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
 
-            return moment(date).format('YYYY-MM-DD HH:mm:ss');
-        },
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
 	},
 	{
 		label: '操作',
@@ -166,13 +166,13 @@ export const officeTableCols = [
 		prop: 'createDate',
 		// formatter: (r, w) => moment(r[w]).format('YYYY-MM-DD HH:mm:ss')
 		formatter: function (row, column) {
-            var date = row[column.property];
-            if (date == undefined) {
-                return '';
-            }
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
 
-            return moment(date).format('YYYY-MM-DD HH:mm:ss');
-        },
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
 	},
 	{
 		label: '操作',
@@ -219,13 +219,13 @@ export const nurseTableCols = [
 		prop: 'createDate',
 		// formatter: (r, w) => moment(r[w]).format('YYYY-MM-DD HH:mm:ss')
 		formatter: function (row, column) {
-            var date = row[column.property];
-            if (date == undefined) {
-                return '';
-            }
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
 
-            return moment(date).format('YYYY-MM-DD HH:mm:ss');
-        },
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
 	},
 	{
 		label: '操作',
@@ -254,7 +254,7 @@ export const collectTableCols = [
 		type: 'select',
 		edit: true
 	},
-	
+
 	{
 		label: '备注',
 		prop: 'remarks',
@@ -267,13 +267,13 @@ export const collectTableCols = [
 		prop: 'createDate',
 		// formatter: (r, w) => moment(r[w]).format('YYYY-MM-DD HH:mm:ss')
 		formatter: function (row, column) {
-            var date = row[column.property];
-            if (date == undefined) {
-                return '';
-            }
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
 
-            return moment(date).format('YYYY-MM-DD HH:mm:ss');
-        },
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
 	},
 	{
 		label: '操作',
@@ -314,13 +314,13 @@ export const noticeTableCols = [
 		prop: 'writeTime',
 		// formatter: (r, w) => moment(r[w]).format('YYYY-MM-DD HH:mm:ss')
 		formatter: function (row, column) {
-            var date = row[column.property];
-            if (date == undefined) {
-                return '';
-            }
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
 
-            return moment(date).format('YYYY-MM-DD HH:mm:ss');
-        },
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
 	},
 	{
 		label: '发布状态',
@@ -342,13 +342,13 @@ export const warnpushTableCols = [
 		prop: 'pushTime',
 		// formatter: (r, w) => moment(r[w]).format('YYYY-MM-DD HH:mm:ss')
 		formatter: function (row, column) {
-            var date = row[column.property];
-            if (date == undefined) {
-                return '';
-            }
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
 
-            return moment(date).format('YYYY-MM-DD HH:mm:ss');
-        },
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
 	},
 	{
 		label: '预警类型',
@@ -381,7 +381,7 @@ export const violationStandardTableCols = [
 		prop: 'violationStandardName',
 		search: true,
 		type: 'input',
-		
+
 	},
 	{
 		label: '处罚方式',
@@ -429,7 +429,7 @@ export const violationStandardTableCols = [
 				label: '禁用',
 				value: '2'
 			},
-			
+
 		]
 	},
 	{
@@ -457,13 +457,13 @@ export const violationExamineTableCols = [
 		prop: 'writeTime',
 		edit: true,
 		formatter: function (row, column) {
-            var date = row[column.property];
-            if (date == undefined) {
-                return '';
-            }
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
 
-            return moment(date).format('YYYY-MM-DD HH:mm:ss');
-        },
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
 	},
 	{
 		label: '处置方式',
@@ -481,6 +481,34 @@ export const violationExamineTableCols = [
 		label: '状态',
 		prop: 'status',
 		edit: true,
+	},
+	{
+		label: '操作',
+		prop: 'operation'
+	}
+]
+
+//系统字典
+export const dataDictionarys = [
+	{
+		label: '状态归属',
+		prop: 'dictApi',
+		type: 'input',
+	},
+	{
+		label: '状态名称',
+		prop: 'dictLabel',
+		type: 'select',
+	},
+	{
+		label: '状态值',
+		prop: 'dictValue',
+		type: 'input',
+	},
+	{
+		label: '备注',
+		prop: 'remark',
+		type: 'input',
 	},
 	{
 		label: '操作',
