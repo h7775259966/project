@@ -11,11 +11,11 @@
             router
             :default-openeds="['1', '3']"
         >
-         <!-- <el-submenu index="1">
+            <!-- <el-submenu index="1">
               <template slot="title"><i class="el-icon-first-aid-kit"></i>医废监测</template>
               
-         </el-submenu> -->
-         <template v-for="item in items">
+            </el-submenu>-->
+            <template v-for="item in items">
                 <template v-if="item.subs">
                     <el-submenu :index="item.index" :key="item.index">
                         <template slot="title">
@@ -50,7 +50,6 @@
                     </el-menu-item>
                 </template>
             </template>
-           
         </el-menu>
     </div>
 </template>
@@ -67,7 +66,7 @@ export default {
                     index: 'first',
                     title: '首页'
                 },
-                
+
                 {
                     icon: 'el-icon-s-operation',
                     index: 'chaxun',
@@ -87,14 +86,14 @@ export default {
                     icon: 'el-icon-chat-square',
                     index: 'gonggao',
                     title: '公告管理',
-                    subs:[
+                    subs: [
                         {
-                            index:'input',
-                            title:'公告录入'
+                            index: 'input',
+                            title: '公告录入'
                         },
                         {
-                            index:'see',
-                            title:'公告查看'
+                            index: 'see',
+                            title: '公告查看'
                         }
                     ]
                 },
@@ -109,7 +108,7 @@ export default {
                         },
                         {
                             index: 'markdown',
-                            title: '信息上报',
+                            title: '信息上报'
                         },
                         {
                             index: 'mechanism',
@@ -128,7 +127,7 @@ export default {
                         },
                         {
                             index: 'inspect',
-                            title: '违规检查',
+                            title: '违规检查'
                         },
                         {
                             index: 'history',
@@ -147,7 +146,7 @@ export default {
                         },
                         {
                             index: 'organization',
-                            title: '医废分级机构',
+                            title: '医废分级机构'
                         },
                         {
                             index: 'municipal',
@@ -176,7 +175,7 @@ export default {
                         {
                             index: 'classified',
                             title: '医废分级汇总'
-                        },
+                        }
                     ]
                 },
                 {
@@ -207,7 +206,7 @@ export default {
                         {
                             index: 'earlytype',
                             title: '预警类型报表'
-                        },
+                        }
                     ]
                 },
                 {
@@ -221,15 +220,15 @@ export default {
                         },
                         {
                             index: 'line',
-                            title: '线路配置',
+                            title: '线路配置'
                         },
                         {
                             index: 'realtime',
-                            title: '实时轨迹',
+                            title: '实时轨迹'
                         },
                         {
                             index: 'historical',
-                            title: '历史轨迹',
+                            title: '历史轨迹'
                         }
                     ]
                 },
@@ -263,7 +262,7 @@ export default {
                         },
                         {
                             index: 'operation',
-                            title: '出库操作',
+                            title: '出库操作'
                         },
                         {
                             index: 'record',
@@ -282,7 +281,7 @@ export default {
                         },
                         {
                             index: 'management',
-                            title: '预警处置',
+                            title: '预警处置'
                         },
                         {
                             index: 'earlyrecord',
@@ -293,8 +292,7 @@ export default {
                 {
                     icon: 'el-icon-guide',
                     index: '/push',
-                    title: '预警推送',
-                    
+                    title: '预警推送'
                 },
                 {
                     icon: 'el-icon-pie-chart',
@@ -307,9 +305,8 @@ export default {
                         },
                         {
                             index: 'monitoring',
-                            title: '监测点医废统计',
-                        },
-                        
+                            title: '监测点医废统计'
+                        }
                     ]
                 },
                 {
@@ -344,9 +341,8 @@ export default {
                         },
                         {
                             index: 'examine',
-                            title: '补录审核',
-                        },
-                        
+                            title: '补录审核'
+                        }
                     ]
                 },
                 {
@@ -354,20 +350,12 @@ export default {
                     index: 'help',
                     title: '系统帮助'
                 },
-<<<<<<< HEAD
+
                 {
-                    icon: 'el-icon-question',
-                    index: 'zidian',
-                    title: '数据字典'
-                },
-=======
-                                {
                     icon: 'el-icon-document',
                     index: 'zidian',
                     title: '数据字典'
                 }
->>>>>>> 8628a9bac661615080844b63f5aa4834a0644125
-                
             ]
         };
     },
@@ -378,7 +366,7 @@ export default {
     },
     created() {
         // 通过 Event Bus 进行组件间通信，来折叠侧边栏
-        bus.$on('collapse', msg => {
+        bus.$on('collapse', (msg) => {
             this.collapse = msg;
             bus.$emit('collapse-content', msg);
         });

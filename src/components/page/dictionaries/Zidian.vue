@@ -16,7 +16,8 @@
                     </el-form-item>
                 </el-form>
             </template>
-			<template #operation="scope">
+            <template #operation="scope">
+                <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.rowData)">编辑</el-button>
                 <el-button
                     type="text"
                     icon="el-icon-delete"
@@ -32,10 +33,31 @@
                     prop="dictApi"
                     label="状态归属"
                     :rules="[
-					{ required: true, message: '请输入标题', trigger: 'blur' },
+					{ required: true, message: '请输入状态归属', trigger: 'blur' },
 				]"
                 >
                     <el-input v-model="form.dictApi"></el-input>
+                </el-form-item>
+                <el-form-item
+                    prop="dictLabel"
+                    label="状态名称"
+                    :rules="[
+					{ required: true, message: '请输入状态名称', trigger: 'blur' },
+				]"
+                >
+                    <el-input v-model="form.dictLabel"></el-input>
+                </el-form-item>
+                <el-form-item
+                    prop="dictValue"
+                    label="状态值"
+                    :rules="[
+					{ required: true, message: '请输入状态值', trigger: 'blur' },
+				]"
+                >
+                    <el-input v-model="form.dictValue"></el-input>
+                </el-form-item>
+                <el-form-item prop="remark" label="备注">
+                    <el-input v-model="form.remark"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -83,13 +105,13 @@ export default {
     },
     computed: {
         expendList() {
-            return dataDictionarys.filter(el => el.expand);
+            return dataDictionarys.filter((el) => el.expand);
         },
         tableColList() {
-            return dataDictionarys.filter(el => el.expand === undefined);
+            return dataDictionarys.filter((el) => el.expand === undefined);
         },
         editColList() {
-            return dataDictionarys.filter(el => el.edit);
+            return dataDictionarys.filter((el) => el.edit);
         }
     },
     methods: {
@@ -148,6 +170,5 @@ export default {
 </script>
 
 <style>
-
 </style>
 

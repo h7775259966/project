@@ -1,21 +1,63 @@
 <template>
-    <div>
-        <div class="crumbs">
+    <div style="background-color: #fff;">
+        <div class="title">
+            <h2>当天医废重量统计</h2>
+        </div>
+        <div class="container-fluid listweight">
+            <div class="row">
+                <div class="col-lg-2 bg-warning" style="width: 20%;">
+                    <strong>0</strong>
+                    <span>感染性</span>
+                </div>
+                <div class="col-lg-2 bg-success" style="width: 20%;">
+                    <strong>0</strong>
+                    <span>损伤性</span>
+                </div>
+                <div class="col-lg-2 bg-info" style="width: 20%;">
+                    <strong>0</strong>
+                    <span>病理性</span>
+                </div>
+                <div class="col-lg-2 bg-warning" style="width: 20%;">
+                    <strong>0</strong>
+                    <span>药物性</span>
+                </div>
+                <div class="col-lg-2 bg-danger" style="width: 20%;">
+                    <strong>0</strong>
+                    <span>化学性</span>
+                </div>
+            </div>
+        </div>
+        <section class="time-1">
+            <div class="block">
+                <span>医废日统计：{{ value }}</span>
+                <el-date-picker
+                    v-model="value"
+                    type="daterange"
+                    start-placeholder="开始日期"
+                    end-placeholder="结束日期"
+                    :default-time="['00:00:00', '23:59:59']"
+                ></el-date-picker>
+                <el-button type="primary">查询</el-button>
+            </div>
+            <div class="block-2">
+                <span>医废类型日统计：{{ value }}</span>
+                <el-date-picker
+                    v-model="value"
+                    type="daterange"
+                    start-placeholder="开始日期"
+                    end-placeholder="结束日期"
+                    :default-time="['00:00:00', '23:59:59']"
+                ></el-date-picker>
+                <el-button type="primary">查询</el-button>
+            </div>
+        </section>
+        <!-- <div class="crumbs">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
-                    <i class="el-icon-pie-chart"></i> schart图表
                 </el-breadcrumb-item>
             </el-breadcrumb>
-        </div>
+        </div>-->
         <div class="container">
-            <div class="plugins-tips">
-                vue-schart：vue.js封装sChart.js的图表组件。
-                访问地址：
-                <a
-                    href="https://github.com/lin-xin/vue-schart"
-                    target="_blank"
-                >vue-schart</a>
-            </div>
             <div class="schart-box">
                 <div class="content-title">柱状图</div>
                 <schart class="schart" canvasId="bar" :options="options1"></schart>
@@ -45,6 +87,7 @@ export default {
     },
     data() {
         return {
+            value: '',
             options1: {
                 type: 'bar',
                 title: {
@@ -129,7 +172,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .schart-box {
     display: inline-block;
     margin: 20px;
@@ -145,5 +188,81 @@ export default {
     margin: 10px 0;
     font-size: 22px;
     color: #1f2f3d;
+}
+.title {
+    border-bottom: 1px dotted #ddd;
+    padding-bottom: 5px;
+    height: 45px;
+    line-height: 45px;
+}
+.title h2 {
+    line-height: 45px;
+    font-size: 14px;
+    font-weight: 700;
+}
+.listweight div {
+    text-align: center;
+    padding: 8px 0;
+}
+.listweight div strong {
+    font-size: 30px;
+    display: block;
+    line-height: 1.8em;
+    font-weight: 700;
+}
+
+.listweight div span {
+    line-height: 1.5em;
+    font-size: 14px;
+}
+.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    &::before {
+        content: '';
+        display: table;
+    }
+    .row {
+        margin-left: -15px;
+        margin-right: -15px;
+        .col-lg-2 {
+            float: left;
+            position: relative;
+            min-height: 1px;
+        }
+        .bg-warning {
+            background-color: #fcf8e3;
+        }
+        .bg-success {
+            background-color: #dff0d8;
+        }
+        .bg-info {
+            background-color: #d9edf7;
+        }
+        .bg-danger {
+            background-color: #f2dede;
+        }
+    }
+}
+.time-1{
+    
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    overflow: hidden;
+}
+.block .block-2 {
+    border-top: 4px solid #eee;
+    border-bottom: 1px solid #eee;
+    background: #f9f8f8;
+    
+}
+.block{
+    float: left;
+}
+.block-2 {
+    float: right;
 }
 </style>

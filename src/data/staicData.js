@@ -488,29 +488,6 @@ export const violationExamineTableCols = [
 	}
 ]
 
-<<<<<<< HEAD
-//系统字典
-export const dataDictionarys = [
-	{
-		label: '状态归属',
-		prop: 'dictApi',
-		type: 'input',
-	},
-	{
-		label: '状态名称',
-		prop: 'dictLabel',
-		type: 'select',
-	},
-	{
-		label: '状态值',
-		prop: 'dictValue',
-		type: 'input',
-	},
-	{
-		label: '备注',
-		prop: 'remark',
-		type: 'input',
-=======
 //资料上报 上报计划
 export const planTableCols = [
 	{
@@ -568,7 +545,6 @@ export const planTableCols = [
 		prop: 'remark',
 		type: 'input',
 		edit: true
->>>>>>> 8628a9bac661615080844b63f5aa4834a0644125
 	},
 	{
 		label: '操作',
@@ -576,8 +552,6 @@ export const planTableCols = [
 	}
 ]
 
-<<<<<<< HEAD
-=======
 export const InformationReporting=[
 	{
 		label:'计划名称',
@@ -622,6 +596,7 @@ export const dataDictionarys=[
 	{
 		label:'状态归属',
 		prop:'dictApi',
+		search: true,
 		type: 'input',
 	},
 	{
@@ -636,9 +611,13 @@ export const dataDictionarys=[
 	},
 	{
 		label:'备注',
-		prop:'remark',
+		prop:'remarks',
 		type: 'input',
+	},
+	{
+		label:'操作',
+		prop:'operation',
 	}
 ]
->>>>>>> 8628a9bac661615080844b63f5aa4834a0644125
+
 
