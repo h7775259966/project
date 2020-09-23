@@ -590,6 +590,52 @@ export const InformationReporting=[
 
 
 ]
+// 资料上报 机构信息
+export const OrganizationInformation=[
+	    {
+	        label: '机构名称',
+	        prop: 'hospitalName',
+	        type: 'input',
+	        edit: true
+	    },
+	    {
+	        label: '医院等级',
+	        prop: 'grade',
+	        type: 'input',
+	        edit: true
+	    },
+	    {
+	        label: '床位数',
+	        prop: 'bedNumber',
+	        type: 'input',
+	        edit: true
+	    },
+	    {
+	        label: '平均医废量/日',
+	        prop: 'averageTrash',
+	        type: 'input',
+	        edit: true
+	    },
+	    {
+	        label: '最近更新时间',
+	        prop: 'pushTime',
+	        // formatter: (r, w) => moment(r[w]).format('YYYY-MM-DD HH:mm:ss')
+	        formatter: function (row, column) {
+	            var date = row[column.property];
+	            if (date == undefined) {
+	                return '';
+	            }
+	
+	            return moment(date).format('YYYY-MM-DD HH:mm:ss');
+	        },
+	    },
+	    {
+	        label: '操作',
+	        prop: 'operation',
+	        type: 'input',
+	        edit: true
+	    },
+	]
 
 // 数据字典
 export const dataDictionarys=[
