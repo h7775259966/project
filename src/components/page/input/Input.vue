@@ -1,5 +1,6 @@
 <template>
     <Notice />
+    
 </template>
 
 <script>
@@ -13,5 +14,5 @@ export default {
         return {
         };
     },
-};
+}; 
 </script>

@@ -105,7 +105,6 @@ export const hospitalTableCols = [
 		prop: 'operation'
 	}
 ]
-
 export const departmentTableCols = [
 	{
 		label: '部门名称',
@@ -139,7 +138,6 @@ export const departmentTableCols = [
 		prop: 'operation'
 	}
 ]
-
 export const officeTableCols = [
 	{
 		label: '科室名称',
@@ -179,7 +177,6 @@ export const officeTableCols = [
 		prop: 'operation'
 	}
 ]
-
 export const nurseTableCols = [
 	{
 		label: '护士姓名',
@@ -232,7 +229,6 @@ export const nurseTableCols = [
 		prop: 'operation'
 	}
 ]
-
 export const collectTableCols = [
 	{
 		label: '收集人',
@@ -333,8 +329,6 @@ export const noticeTableCols = [
 	}
 ]
 
-
-
 //预警推送
 export const warnpushTableCols = [
 	{
@@ -373,7 +367,6 @@ export const warnpushTableCols = [
 		prop: 'operation'
 	}
 ]
-
 //违规标准
 export const violationStandardTableCols = [
 	{
@@ -488,7 +481,7 @@ export const violationExamineTableCols = [
 	}
 ]
 
-//资料上报 上报计划
+//资料上报 
 export const planTableCols = [
 	{
 		label: '计划名称',
@@ -551,7 +544,7 @@ export const planTableCols = [
 		prop: 'operation'
 	}
 ]
-
+//上报计划
 export const InformationReporting=[
 	{
 		label:'计划名称',
@@ -635,7 +628,61 @@ export const OrganizationInformation=[
 	        type: 'input',
 	        edit: true
 	    },
-	]
+]
+
+//医废入库
+export const trashPutTableCols = [
+	{
+		label: '所属科室',
+		prop: 'officeId',
+		search: true,
+		type: 'input',
+	},
+	{
+		label: '条形编码',
+		prop: 'code',
+		search: true,
+		type: 'input',
+	},
+	{
+		label: '回收人员',
+		prop: 'code',
+		search: true,
+		type: 'input',
+	},
+	{
+		label: '收集时间',
+		prop: 'collectTime',
+		formatter: function (row, column) {
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
+	},
+	{
+		label: '处置方式',
+		prop: 'way',
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '违规内容',
+		prop: 'content',
+		type: 'input',
+		edit: true,
+	},
+	{
+		label: '状态',
+		prop: 'status',
+		edit: true,
+	},
+	{
+		label: '操作',
+		prop: 'operation'
+	}
+]
 
 // 数据字典
 export const dataDictionarys=[

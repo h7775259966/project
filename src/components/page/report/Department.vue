@@ -1,36 +1,85 @@
 <template>
-    <section class="main">
-        <div class="crumbs">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item><i class="el-icon-rank"></i> 拖拽组件</el-breadcrumb-item>
-                <el-breadcrumb-item>拖拽弹框</el-breadcrumb-item>
-            </el-breadcrumb>
-        </div>
-        <div class="container">
-            <p>通过指令 v-dialogDrag 使 Dialog 对话框具有可拖拽的功能。</p>
-            <br>
-            <el-button type="primary" @click="visible = true;">点我弹框</el-button>
-        </div>
-        <el-dialog v-dialogDrag title="拖拽弹框" center :visible.sync="visible" width="30%">
-            我是一个可以拖拽的对话框！
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="visible = false">取 消</el-button>
-                <el-button type="primary" @click="visible = false">确 定</el-button>
-            </span>
-        </el-dialog>
-    </section>
+    <vxe-grid
+        ref="xGrid"
+        v-bind="gridOptions"
+        border
+        resizable
+        export-config
+        import-config
+        keep-source
+        height="500"
+        :form-config="tableForm"
+        :proxy-config="tableProxy"
+        :columns="tableColumn"
+        :toolbar="tableToolbar"
+        :edit-config="{trigger: 'click', mode: 'row', showStatus: true}"
+    ></vxe-grid>
 </template>
 
 <script>
 export default {
-    data(){
+    data() {
         return {
-            visible: false
-        }
+            tableProxy: {
+                props: {
+                    result: 'result',
+                    total: 'page.total'
+                },
+                ajax: {
+                    // // page 对象： { pageSize, currentPage }
+                    // query: ({ page }) => XEAjax.get(`/api/user/page/list/${page.pageSize}/${page.currentPage}`),
+                    // // body 对象： { removeRecords }
+                    // delete: ({ body }) => XEAjax.post('/api/user/save', body),
+                    // // body 对象： { insertRecords, updateRecords, removeRecords, pendingRecords }
+                    // save: ({ body }) => XEAjax.post('/api/user/save', body)
+                }
+            },
+            tableForm: {
+                items: [
+                    { field: 'name', title: '收集人:', itemRender: { name: 'input', attrs: { placeholder: '请输入收集人' } } },
+                    { itemRender: { name: '$button', props: { content: '查询', type: 'submit', status: 'primary' } } },
+                    { itemRender: { name: '$button', props: { content: '重置', type: 'reset' } } }
+                ]
+            },
+            tableToolbar: {
+                buttons: [
+                    { code: 'insert_actived', name: '新增', status: 'primary', icon: 'vxe-icon--plus' },
+                    { code: 'mark_cancel', name: '删除', status: 'primary', icon: 'el-icon-delete' },
+                    { code: 'save', name: '保存', status: 'success', icon: 'el-icon-check' }
+                ],
+                perfect: true,
+                refresh: {
+                    icon: 'vxe-icon--refresh',
+                    iconLoading: 'vxe-icon--refresh roll'
+                },
+                import: {
+                    icon: 'vxe-icon--upload'
+                },
+                export: {
+                    icon: 'vxe-icon--download'
+                },
+                print: {
+                    icon: 'vxe-icon--print'
+                },
+                zoom: {
+                    iconIn: 'el-icon-full-screen',
+                    iconOut: 'el-icon-close'
+                },
+                custom: {
+                    icon: 'vxe-icon--menu'
+                }
+            },
+            tableColumn: [
+                { type: 'checkbox', width: 50 },
+                { type: 'seq', width: 60 },
+                { field: 'name', title: 'Name', editRender: { name: 'input' } },
+                { field: 'nickname', title: 'Nickname', editRender: { name: 'input' } },
+                { field: 'role', title: 'Role', editRender: { name: 'input' } },
+                { field: 'describe', title: 'Describe', showOverflow: true, editRender: { name: 'input' } }
+            ]
+
+            
+        };
     }
-}
+};
 </script>
-
-<style>
-
-</style>

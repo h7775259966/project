@@ -65,20 +65,6 @@
                 <el-button type="primary" @click="saveEdit">确 定</el-button>
             </span>
         </el-dialog>
-        <!-- <el-dialog :title="isAdd ? '新增' : '编辑'" :visible.sync="editVisible" width="30%">
-			<el-form ref="form" :model="form" label-width="auto">
-				<el-form-item :prop="item.prop" :label="item.label" v-for="item in editColList" :key="item.prop">
-					<el-input v-if="item.type === 'input'" v-model="form[item.prop]"></el-input>
-					<el-select v-if="item.type === 'select'" v-model="form[item.prop]">
-						<el-option v-for="o in (item.options || optionsList[item.prop])" :key="o.value" :label="o.label" :value="o.value"></el-option>
-					</el-select>
-				</el-form-item>
-			</el-form>
-			<span slot="footer" class="dialog-footer">
-				<el-button @click="editVisible = false">取 消</el-button>
-				<el-button type="primary" @click="saveEdit">确 定</el-button>
-			</span>
-        </el-dialog>-->
     </div>
 </template>
 

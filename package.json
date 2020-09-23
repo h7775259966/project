@@ -27,7 +27,9 @@
     "vue-router": "^3.0.1",
     "vue-schart": "^2.0.0",
     "vuedraggable": "^2.17.0",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vxe-table": "^2.9.23",
+    "xe-utils": "^2.7.13"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.1",

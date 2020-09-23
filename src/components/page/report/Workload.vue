@@ -1,174 +1,241 @@
 <template>
-    <section class="main">
-        <div class="crumbs">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item><i class="el-icon-rank"></i> 拖拽组件</el-breadcrumb-item>
-                <el-breadcrumb-item>拖拽排序</el-breadcrumb-item>
-            </el-breadcrumb>
-        </div>
-        <div class="container">
-            <div class="plugins-tips">
-                Vue.Draggable：基于 Sortable.js 的 Vue 拖拽组件。
-                访问地址：<a href="https://github.com/SortableJS/Vue.Draggable" target="_blank">Vue.Draggable</a>
-            </div>
-            <div class="drag-box">
-                <div class="drag-box-item">
-                    <div class="item-title">todo</div>
-                    <draggable v-model="todo" @remove="removeHandle" :options="dragOptions">
-                        <transition-group tag="div" id="todo" class="item-ul">
-                            <div v-for="item in todo" class="drag-list" :key="item.id">
-                                {{item.content}}
-                            </div>
-                        </transition-group>
-                    </draggable>
-                </div>
-                <div class="drag-box-item">
-                    <div class="item-title">doing</div>
-                    <draggable v-model="doing" @remove="removeHandle" :options="dragOptions">
-                        <transition-group tag="div" id="doing" class="item-ul">
-                            <div v-for="item in doing" class="drag-list" :key="item.id">
-                                {{item.content}}
-                            </div>
-                        </transition-group>
-                    </draggable>
-                </div>
-                <div class="drag-box-item">
-                    <div class="item-title">done</div>
-                    <draggable v-model="done" @remove="removeHandle" :options="dragOptions">
-                        <transition-group tag="div" id="done" class="item-ul">
-                            <div v-for="item in done" class="drag-list" :key="item.id">
-                                {{item.content}}
-                            </div>
-                        </transition-group>
-                    </draggable>
-                </div>
-            </div>
-        </div>
-    </section>
+    <vxe-grid
+        ref="xGrid"
+        v-bind="gridOptions"
+        border
+        resizable
+        export-config
+        import-config
+        keep-source
+        height="500"
+        :form-config="tableForm"
+        :proxy-config="tableProxy"
+        :columns="tableColumn"
+        :toolbar="tableToolbar"
+        :edit-config="{trigger: 'click', mode: 'row', showStatus: true}"
+    ></vxe-grid>
 </template>
 
 <script>
-    import draggable from 'vuedraggable'
-    export default {
-        name: 'draglist',
-        data() {
-            return {
-                dragOptions:{
-                    animation: 120,
-                    scroll: true,
-                    group: 'sortlist',
-                    ghostClass: 'ghost-style'
+export default {
+    data() {
+        return {
+            tableProxy: {
+                props: {
+                    result: 'result',
+                    total: 'page.total'
                 },
-                todo: [
-                    {
-                        id: 1,
-                        content: '开发图表组件'
-                    },
-                    {
-                        id: 2,
-                        content: '开发拖拽组件'
-                    },
-                    {
-                        id: 3,
-                        content: '开发权限测试组件'
-                    }
-                ],
-                doing: [
-                    {
-                        id: 1,
-                        content: '开发登录注册页面'
-                    },
-                    {
-                        id: 2,
-                        content: '开发头部组件'
-                    },
-                    {
-                        id: 3,
-                        content: '开发表格相关组件'
-                    },
-                    {
-                        id: 4,
-                        content: '开发表单相关组件'
-                    }
-                ],
-                done:[
-                    {
-                        id: 1,
-                        content: '初始化项目，生成工程目录，完成相关配置'
-                    },
-                    {
-                        id: 2,
-                        content: '开发项目整体框架'
-                    }
+                ajax: {
+                    // // page 对象： { pageSize, currentPage }
+                    // query: ({ page }) => XEAjax.get(`/api/user/page/list/${page.pageSize}/${page.currentPage}`),
+                    // // body 对象： { removeRecords }
+                    // delete: ({ body }) => XEAjax.post('/api/user/save', body),
+                    // // body 对象： { insertRecords, updateRecords, removeRecords, pendingRecords }
+                    // save: ({ body }) => XEAjax.post('/api/user/save', body)
+                }
+            },
+            tableForm: {
+                items: [
+                    { field: 'name', title: '收集人:', itemRender: { name: 'input', attrs: { placeholder: '请输入收集人' } } },
+                    { itemRender: { name: '$button', props: { content: '查询', type: 'submit', status: 'primary' } } },
+                    { itemRender: { name: '$button', props: { content: '重置', type: 'reset' } } }
                 ]
-            }
-        },
-        components:{
-            draggable
-        },
-        methods: {
-            removeHandle(event){
-                console.log(event);
-                this.$message.success(`从 ${event.from.id} 移动到 ${event.to.id} `);
-            }
-        }
-    }
+            },
+            tableToolbar: {
+                buttons: [
+                    { code: 'insert_actived', name: '新增', status: 'primary', icon: 'vxe-icon--plus' },
+                    { code: 'mark_cancel', name: '删除', status: 'primary', icon: 'el-icon-delete' },
+                    { code: 'save', name: '保存', status: 'success', icon: 'el-icon-check' }
+                ],
+                perfect: true,
+                refresh: {
+                    icon: 'vxe-icon--refresh',
+                    iconLoading: 'vxe-icon--refresh roll'
+                },
+                import: {
+                    icon: 'vxe-icon--upload'
+                },
+                export: {
+                    icon: 'vxe-icon--download'
+                },
+                print: {
+                    icon: 'vxe-icon--print'
+                },
+                zoom: {
+                    iconIn: 'el-icon-full-screen',
+                    iconOut: 'el-icon-close'
+                },
+                custom: {
+                    icon: 'vxe-icon--menu'
+                }
+            },
+            tableColumn: [
+                { type: 'checkbox', width: 50 },
+                { type: 'seq', width: 60 },
+                { field: 'name', title: 'Name', editRender: { name: 'input' } },
+                { field: 'nickname', title: 'Nickname', editRender: { name: 'input' } },
+                { field: 'role', title: 'Role', editRender: { name: 'input' } },
+                { field: 'describe', title: 'Describe', showOverflow: true, editRender: { name: 'input' } }
+            ]
 
+            // gridOptions: {
+            //     border: true, //是否带有边框
+            //     resizable: true, //所有的列是否允许拖动列宽调整大小
+            //     showHeaderOverflow: true, //设置表头所有内容过长时显示为省略号
+            //     showOverflow: true, //设置所有内容过长时显示为省略号（如果是固定列建议设置该值，提升渲染速度）
+            //     highlightHoverRow: true, //鼠标移到行是否要高亮显示
+            //     keepSource: true, //保持原始值的状态，被某些功能所依赖，比如编辑状态、还原数据等（开启后影响性能，具体取决于数据量）
+            //     id: 'full_edit_1',
+            //     height: 600,
+            //     rowId: 'id',
+            //     customConfig: {
+            //         //自定义列配置项
+            //         storage: true, //是否启用 localStorage 本地保存，会将列操作状态保留在本地（需要有 id）
+            //         checkMethod: this.checkColumnMethod //自定义列是否允许列选中的方法，该方法 Function({ column }) 的返回值用来决定这一列的 checkbox 是否可以选中
+            //     },
+            //     printConfig: {   //打印配置项
+            //       columns: [
+            //         { field: 'name' },
+            //         { field: 'email' },
+            //         { field: 'nickname' },
+            //         { field: 'age' },
+            //         { field: 'amount' }
+            //       ]
+            //     },
+            //     sortConfig: {     //排序配置项
+            //       trigger: 'cell'     //触发方式    default（点击按钮触发）, cell（点击表头触发）
+            //     },
+            //     filterConfig: {    //筛选配置项
+            //       remote: true    //所有列是否使用服务端筛选，如果设置为 true 则不会对数据进行处理
+            //     },
+            //     formConfig: {     //表单配置项
+            //       titleWidth: 100,      //所有项的标题宽度
+            //       titleAlign: 'right',    //所有项的标题对齐方式
+            //       items: [
+
+            //       ]
+            //     },
+            //     toolbar: {  //工具栏配置
+            //       buttons: [
+            //         { code: 'insert_actived', name: '新增', icon: 'fa fa-plus' },
+            //         { code: 'delete', name: '直接删除', icon: 'fa fa-trash-o' },
+            //         { code: 'mark_cancel', name: '删除/取消', icon: 'fa fa-trash-o' },
+            //         { code: 'save', name: '保存', icon: 'fa fa-save', status: 'success' }
+            //       ],
+            //     },
+            //     refresh: true,  //刷新
+            //     import: true,   //导入
+            //     export: true,   //导出
+            //     print: true,    //打印
+            //     zoom: true,     //当最大化或还原操作被手动点击时会后触发该事件
+            //     custom: true    //如果与工具栏关联，在自定义列按钮被手动点击后会触发该事件
+            // },
+            // columns: [
+            //       { type: 'checkbox', title: 'ID', width: 120 },
+            //       { field: 'name', title: 'Name', remoteSort: true, editRender: { name: 'input' } },
+            //       {
+            //         field: 'role',
+            //         title: 'Role',
+            //         remoteSort: true,
+            //         filters: [
+            //           { label: '前端开发', value: '前端' },
+            //           { label: '后端开发', value: '后端' },
+            //           { label: '测试', value: '测试' },
+            //           { label: '程序员鼓励师', value: '程序员鼓励师' }
+            //         ],
+            //         filterMultiple: false,
+            //         editRender: { name: 'input' }
+            //     },
+            //     { field: 'email', title: 'Email', width: 160, editRender: { name: 'input' } },
+            //       { field: 'nickname', title: 'Nickname', editRender: { name: 'input' } },
+            //       { field: 'sex', title: 'Sex', editRender: { name: '$select', options: [] } },
+            //       { field: 'age', title: 'Age', visible: false, remoteSort: true, editRender: { name: '$input', props: { type: 'number', min: 1, max: 120 } } },
+            //       { field: 'amount', title: 'Amount', formatter: this.formatAmount, editRender: { name: '$input', props: { type: 'float', digits: 2 } } },
+            //       { field: 'updateDate', title: 'Update Date', width: 160, visible: false, remoteSort: true, formatter: this.formatDate },
+            //       { field: 'createDate', title: 'Create Date', width: 160, visible: false, remoteSort: true, formatter: this.formatDate }
+            // ],
+            // importConfig: {
+            //     remote: true,
+            //     importMethod: this.importMethod,
+            //     types: ['xlsx'],
+            //     modes: ['insert']
+            // },
+            // exportConfig: {
+            //     remote: true,
+            //     exportMethod: this.exportMethod,
+            //     types: ['xlsx'],
+            //     modes: ['current', 'selected', 'all']
+            // },
+            // checkboxConfig: {
+            //     labelField: 'id',
+            //     reserve: true,
+            //     highlight: true,
+            //     range: true
+            // },
+            // editRules: {
+            //     name: [
+            //         { required: true, message: 'app.body.valid.rName' },
+            //         { min: 3, max: 50, message: '名称长度在 3 到 50 个字符' }
+            //     ],
+            //     email: [
+            //         { required: true, message: '邮件必须填写' }
+            //     ],
+            //     role: [
+            //         { required: true, message: '角色必须填写' }
+            //     ]
+            // },
+            // editConfig: {
+            //     trigger: 'click',
+            //     mode: 'row',
+            //     showStatus: true
+            // },
+
+            // methods: {
+            //     async findSexList () {
+            //         const sexList = await XEAjax.get('/api/conf/sex/list')
+            //         // 异步更新下拉选项
+            //         this.sexList = sexList
+            //         const xGrid = this.$refs.xGrid
+            //         if (xGrid) {
+            //             const sexColumn = xGrid.getColumnByField('sex')
+            //             sexColumn.editRender.options = sexList
+            //             const sexItem = xGrid.getFormItems(4)
+            //             sexItem.itemRender.options = sexList
+            //         }
+            //     },
+            // },
+
+            // importMethod ({ file }) {
+            //   const formBody = new FormData()
+            //   formBody.append('file', file)
+            //   return XEAjax.post('https://api.xuliangzhan.com:10443/api/pub/import', formBody).then(data => {
+            //     this.$XModal.message({ message: `成功导入 ${data.result.insertRows} 条记录！`, status: 'success' })
+            //     // 导入完成，刷新表格
+            //     this.$refs.xGrid.commitProxy('query')
+            //   }).catch(() => {
+            //     this.$XModal.message({ message: '导入失败，请检查数据是否正确！', status: 'error' })
+            //   })
+            // },
+            // exportMethod ({ options }) {
+            //   const proxyInfo = this.$refs.xGrid.getProxyInfo()
+            //   // 传给服务端的参数
+            //   const body = {
+            //         filename: options.filename,
+            //         sheetName: options.sheetName,
+            //         isHeader: options.isHeader,
+            //         original: options.original,
+            //         mode: options.mode,
+            //         pager: proxyInfo.pager,
+            //         ids: options.mode === 'selected' ? options.data.map(item => item.id) : [],
+            //         fields: options.columns.map(column => {
+            //         return {
+            //             field: column.property,
+            //             title: column.title
+            //         }
+            //         })
+            //     }
+            // }
+        };
+    }
+};
 </script>
-
-<style scoped>
-    .drag-box{
-        display: flex;
-        user-select: none;
-    }
-    .drag-box-item {
-        flex: 1;
-        max-width: 330px;
-        min-width: 300px;
-        background-color: #eff1f5;
-        margin-right: 16px;
-        border-radius: 6px;
-        border: 1px #e1e4e8 solid;
-    }
-    .item-title{
-        padding: 8px 8px 8px 12px;
-        font-size: 14px;
-        line-height: 1.5;
-        color: #24292e;
-        font-weight: 600;
-    }
-    .item-ul{
-        padding: 0 8px 8px;
-        height: 500px;
-        overflow-y: scroll;
-    }
-    .item-ul::-webkit-scrollbar{
-        width: 0;
-    }
-    .drag-list {
-        border: 1px #e1e4e8 solid;
-        padding: 10px;
-        margin: 5px 0 10px;
-        list-style: none;
-        background-color: #fff;
-        border-radius: 6px;
-        cursor: pointer;
-        -webkit-transition: border .3s ease-in;
-        transition: border .3s ease-in;
-    }
-    .drag-list:hover {
-        border: 1px solid #20a0ff;
-    }
-    .drag-title {
-        font-weight: 400;
-        line-height: 25px;
-        margin: 10px 0;
-        font-size: 22px;
-        color: #1f2f3d;
-    }
-    .ghost-style{
-        display: block;
-        color: transparent;
-        border-style: dashed
-    }
-</style>

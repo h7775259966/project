@@ -203,21 +203,21 @@ const router = new Router({
         component: () => import('../components/page/car/Historical.vue'),
         meta: { title: '历史轨迹' }
       },
-      //医废收集
+      //医废收集collection
       {
         path: '/collection',
         component: () => import('../components/page/collection/Collection.vue'),
-        meta: { title: '线路配置' }
+        meta: { title: '医废收集' }
       },
       {
         path: '/storage',
         component: () => import('../components/page/collection/Storage.vue'),
-        meta: { title: '实时轨迹' }
+        meta: { title: '医废入库' }
       },
       {
         path: '/collecthistory',
         component: () => import('../components/page/collection/Collecthistory.vue'),
-        meta: { title: '历史轨迹' }
+        meta: { title: '收集历史' }
       },
       //医废出库
       {
