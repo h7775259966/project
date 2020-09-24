@@ -44,9 +44,7 @@ export default {
         };
     },
     methods: {
-        back() {
-            this.$router.push('/first');
-        }
+        
     }
 };
 </script>

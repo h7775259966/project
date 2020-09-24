@@ -56,8 +56,8 @@
                 >
                     <el-input v-model="form.dictValue"></el-input>
                 </el-form-item>
-                <el-form-item prop="remark" label="备注">
-                    <el-input v-model="form.remark"></el-input>
+                <el-form-item prop="remarks" label="备注">
+                    <el-input v-model="form.remarks"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
