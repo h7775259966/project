@@ -69,11 +69,11 @@ export function allDepartment() {
 
 //科室
 export function Office(query) {
-  return request({
-    url:'/api/office/all',
-    method: 'GET',
-    params: query
-  })
+	return request({
+		url: '/api/office/all',
+		method: 'GET',
+		params: query
+	})
 }
 export const officeTableURL = 'api/office/list/'
 // 新增
@@ -103,7 +103,14 @@ export function deleteOffice(id) {
 export function allOffice() {
 	return request({
 		url: `api/office/all/`,
-		// url: `api/office/findByDepartmentId/${departmentId}`,
+		method: 'get'
+	})
+}
+
+// 根据部门id获取科室
+export function getOfficeById(departmentId) {
+	return request({
+		url: `api/office/findByDepartmentId/${departmentId}`,
 		method: 'get'
 	})
 }

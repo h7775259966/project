@@ -1,6 +1,6 @@
 <template>
     <div>
-		<e-table ref="depTable" :dataOrigin="dataOrigin" :tableCols="tableColList" :showOperation="true" :expand="true">
+		<e-table ref="depTable" :dataOrigin="dataOrigin" :tableCols="tableColList" :showOperation="true" :expand="true" new-search>
 			<template #operationArea>
 				<el-button type="primary" @click="add">新增</el-button>
 			</template>

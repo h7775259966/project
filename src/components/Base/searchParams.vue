@@ -1,9 +1,12 @@
 <template>
 	<div>
 		<div class="search_form_container" :style="{width:seachWidth + 'px'}">
+			<template v-for="(item, index) in isTime">
+				<el-date-picker :key="index" v-model="paramsEntity[item.prop]" type="datetime" value-format="yyyy-MM-dd" :placeholder="'选择'+item.label" />
+			</template>
 			<el-select v-model="selectSearchParams" @change="searchParamsPropChange" class="search_pre_select"
 				popper-class="ali_compatible">
-				<el-option v-for="param in params" :key="param.prop" :label="param.label" :value="param.prop"></el-option>
+				<el-option v-for="param in notTime" :key="param.prop" :label="param.label" :value="param.prop"></el-option>
 			</el-select>
 			
 			<template v-if="currentSearchParamsItem !== null">
@@ -66,7 +69,7 @@ export default {
 		},
 		seachWidth: {
 			type: Number,
-			default: 400
+			default: 800
 		}
 	},
 	data () {
@@ -107,6 +110,14 @@ export default {
 	mounted() {
 		this.selectSearchParams = this.params.length > 0 ? this.params[0].prop : '';
 		this.filterParamsItem(this.selectSearchParams);
+	},
+	computed: {
+		isTime() {
+			return this.params.filter(item => item.type === 'datetime')
+		},
+		notTime() {
+			return this.params.filter(item => item.type !== 'datetime')
+		}
 	},
 	methods: {
 		searchParamsPropChange(prop) {

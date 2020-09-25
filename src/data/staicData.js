@@ -195,13 +195,13 @@ export const nurseTableCols = [
 	{
 		label: '所属部门',
 		prop: 'departmentName',
-		type: 'select',
+		type: 'cascader',
 		edit: true
 	},
 	{
 		label: '所属科室',
 		prop: 'officeName',
-		type: 'select',
+		type: 'cascader',
 		edit: true
 	},
 	{
@@ -630,8 +630,8 @@ export const OrganizationInformation=[
 	    },
 ]
 
-//医废入库
-export const trashPutTableCols = [
+//医废收集
+export const trashCollectTableCols = [
 	{
 		label: '所属科室',
 		prop: 'officeId',
@@ -639,13 +639,7 @@ export const trashPutTableCols = [
 		type: 'input',
 	},
 	{
-		label: '条形编码',
-		prop: 'code',
-		search: true,
-		type: 'input',
-	},
-	{
-		label: '回收人员',
+		label: '条码标识',
 		prop: 'code',
 		search: true,
 		type: 'input',
@@ -662,26 +656,208 @@ export const trashPutTableCols = [
 		},
 	},
 	{
-		label: '处置方式',
-		prop: 'way',
+		label: '回收趟次',
+		prop: 'collectNumber',
 		type: 'input',
-		edit: true
 	},
 	{
-		label: '违规内容',
-		prop: 'content',
+		label: '废物类型',
+		prop: 'trashId',
+		search: true,
 		type: 'input',
-		edit: true,
 	},
 	{
-		label: '状态',
-		prop: 'status',
-		edit: true,
+		label: '物品重量（kg） ',
+		prop: 'violationWeight',
+		type: 'input',
 	},
 	{
-		label: '操作',
-		prop: 'operation'
-	}
+		label: '医废包数',
+		prop: 'packets',
+		type: 'input',
+	},
+	{
+		label: '收集方式',
+		prop: 'collectMethods',
+		type: 'input',
+	},
+	{
+		label: '小车编码',
+		prop: 'equipmentId',
+		type: 'input',
+	},
+	
+	{
+		label: '移交人员',
+		prop: 'collectId',
+		type: 'input',
+	},
+]
+//医废入库
+export const trashPutTableCols = [
+	{
+		label: '所属科室',
+		prop: 'officeId',
+		search: true,
+		type: 'input',
+	},
+	{
+		label: '条形编码',
+		prop: 'code',
+		search: true,
+		type: 'input',
+	},
+	
+	{
+		label: '回收人员',
+		prop: 'recycle',
+		type: 'input',
+	},
+	{
+		label: '收集时间',
+		prop: 'collectTime',
+		formatter: function (row, column) {
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
+	},
+	{
+		label: '回收趟次',
+		prop: 'collectNumber',
+		type: 'input',
+	},
+	{
+		label: '废物类型 ',
+		prop: 'trashId',
+		type: 'input',
+	},
+	{
+		label: '转运箱编号',
+		prop: 'caseNum',
+		type: 'input',
+	},
+	{
+		label: '物品重量',
+		prop: 'weight',
+		type: 'input',
+	},
+	{
+		label: '物品称重',
+		prop: 'weightNumber',
+		type: 'input',
+	},
+	{
+		label: '医废包数',
+		prop: 'packets',
+		type: 'input',
+	},
+	{
+		label: '移交人员',
+		prop: 'collectId',
+		type: 'input',
+	},
+	{
+		label: '入库时间',
+		prop: 'putInTime',
+		formatter: function (row, column) {	
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
+	},
+	{
+		label: '收集方式',
+		prop: 'collectMethods',
+		type: 'input',
+	},
+]
+//收集历史
+export const trashCollectHistoryTableCols = [
+	{
+		label: '所属科室',
+		prop: 'officeId',
+		search: true,
+		type: 'input',
+	},
+	{
+		label: '条形编码',
+		prop: 'code',
+		search: true,
+		type: 'input',
+	},
+	
+	{
+		label: '回收人员',
+		prop: 'recycle',
+		type: 'input',
+	},
+	{
+		label: '收集时间',
+		prop: 'collectTime',
+		formatter: function (row, column) {
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
+	},
+	{
+		label: '回收趟次',
+		prop: 'collectNumber',
+		type: 'input',
+	},
+	{
+		label: '废物类型 ',
+		prop: 'trashId',
+		type: 'input',
+	},
+	{
+		label: '转运箱编号',
+		prop: 'caseNum',
+		type: 'input',
+	},
+	{
+		label: '物品重量',
+		prop: 'weight',
+		type: 'input',
+	},
+	{
+		label: '物品称重',
+		prop: 'weightNumber',
+		type: 'input',
+	},
+	{
+		label: '医废包数',
+		prop: 'packets',
+		type: 'input',
+	},
+	{
+		label: '移交人员',
+		prop: 'collectId',
+		type: 'input',
+	},
+	{
+		label: '入库时间',
+		prop: 'putInTime',
+		formatter: function (row, column) {	
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
+	},
+	{
+		label: '收集方式',
+		prop: 'collectMethods',
+		type: 'input',
+	},
 ]
 
 // 数据字典

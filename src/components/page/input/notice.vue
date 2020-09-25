@@ -1,6 +1,6 @@
 <template>
     <div>	
-		<e-table ref="collectTable" :dataOrigin="dataOrigin" :tableCols="tableColList" :customSearchList="customSearchList" :showOperation="true">
+		<e-table ref="collectTable" :dataOrigin="dataOrigin" :tableCols="tableColList" :customSearchList="customSearchList" :showOperation="true" new-search>
 			<template #operationArea v-if="kind === 'edit'">
 				<el-button type="primary" @click="add">添加</el-button>
 			</template>
@@ -126,10 +126,7 @@ export default {
 					type: 'select',
 					prop: 'status',
 					options: [
-						{
-							label: '全部',
-							value: '2'
-						},
+						
 						{
 							label: '未发布',
 							value: '0'
