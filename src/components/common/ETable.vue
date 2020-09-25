@@ -9,9 +9,11 @@
                 <el-row>
                     <el-col :offset="1" v-for="(item, index) in searchParamsConf" :key="index" :span="item.type === 'datetime' ? 6 : 4">
                         <el-form-item :prop="item.prop" :label="item.label">
-                            <el-input v-if="item.type === 'input'" v-model="condition[item.prop]" />
+                            <el-input v-if="item.type === 'input'" v-model="condition[item.prop]" 
+							:placeholder="'请输入' + item.label"/>
                             <el-select v-else-if="item.type === 'select'" clearable v-model="condition[item.prop]">
-                                <el-option v-for="jtem in item.options" :key="jtem.value" :label="jtem.label" :value="jtem.value" />
+                                <el-option v-for="jtem in item.options" :key="jtem.value" :label="jtem.label" :value="jtem.value" 
+								:placeholder="'请输入' + item.label"/>
                             </el-select>
                             <el-date-picker
                                 v-else-if="item.type === 'datetime'"
@@ -19,7 +21,7 @@
                                 v-model="condition[item.prop]"
                                 type="datetime"
                                 value-format="yyyy-MM-dd"
-                                :placeholder="'选择' + item.label"
+                                :placeholder="'请选择' + item.label"
                             />
                         </el-form-item>
                     </el-col>
@@ -72,145 +74,150 @@
 import SearchParams from '../Base/searchParams';
 import Time from '../Base/time';
 import request from '../../utils/request.js';
-import { filterEmpty } from '@/utils/index.js'
+import { filterEmpty } from '@/utils/index.js';
 
 export default {
-  name: 'ETable',
-  components: {
-    SearchParams,
-    Time
-  },
-  props: {
-    newSearch: {
-      type: Boolean,
-      default: false
+    name: 'ETable',
+    components: {
+        SearchParams,
+        Time
     },
-    showOperation: {
-      type: Boolean,
-      default: false
+    props: {
+        newSearch: {
+            type: Boolean,
+            default: false
+        },
+        showOperation: {
+            type: Boolean,
+            default: false
+        },
+        showSearch: {
+            type: Boolean,
+            default: true
+        },
+        showSelectionCol: {
+            type: Boolean,
+            default: false
+        },
+        initDataimmediately: {
+            type: Boolean,
+            default: true
+        },
+        expand: {
+            type: Boolean,
+            default: false
+        },
+        dataOrigin: {
+            type: Object,
+            default: () => {
+                data: [];
+            }
+        },
+        tableCols: {
+            type: Array,
+            default: () => []
+        },
+        customSearchList: {
+            type: Array,
+            default: () => []
+        },
+        customTime: {
+            type: Array,
+            default: () => []
+        }
     },
-    showSearch: {
-      type: Boolean,
-      default: true
+    data() {
+        return {
+            condition: {},
+            tbData: [],
+            total: 0,
+            currentPage: 1,
+            pageSize: 10,
+            staticTablePageData: [],
+            filterTbDataParams: {}
+        };
     },
-    showSelectionCol: {
-      type: Boolean,
-      default: false
-    },
-    initDataimmediately: {
-      type: Boolean,
-      default: true
-    },
-    expand: {
-      type: Boolean,
-      default: false
-    },
-    dataOrigin: {
-      type: Object,
-      default: () => { data: [] }
-    },
-    tableCols: {
-      type: Array,
-      default: () => []
-    },
-    customSearchList: {
-      type: Array,
-      default: () => []
-    },
-    customTime: {
-      type: Array,
-      default: () => []
-    },
-  },
-  data() {
-    return {
-      condition: {},
-      tbData: [],
-      total: 0,
-      currentPage: 1,
-      pageSize: 10,
-      staticTablePageData: [],
-      filterTbDataParams: {}
-    }
-  },
-  created() {
-    this.$nextTick(() => {
-      this.initDataimmediately && this.initData();
-    });
-  },
-  computed: {
-    searchParamsConf() {
-      let list = this.customSearchList.length > 0 ? this.customSearchList : this.tableCols.filter(el => el.search) || [];
-      list.forEach(item => {
-        this.$set(this.condition, item.prop, '')
-      })
-      return list;
-      return this.customTime.length > 0 ? this.customSearchList : this.tableCols.filter(el => el.search) || [];
-    }
-  },
-  methods: {
-    searchParamsChange(val) {
-      if (this.newSearch) {
-        val = filterEmpty(this.condition)
-      }
-      console.log(val)
-      this.$set(this, 'filterTbDataParams', val);
-      this.currentPage = 1;
-      this.queryTableData();
-    },
-    generateQueryParams(method = 'get') {
-      let params = JSON.parse(JSON.stringify(this.dataOrigin.params ? this.dataOrigin.params : {}));
-      Object.assign(params, this.filterTbDataParams || {});
-      if (method.toLowerCase() === 'get') {
-        return { params: params };
-      } else {
-        return { data: params };
-      }
-    },
-    initData() {
-      if (this.dataOrigin.hasOwnProperty('data')) {
-        this.staticPageChange();
-        this.tbData = this.staticTablePageData;
-        this.total = this.dataOrigin.data.length;
-        this.selectRows();
-        return;
-      }
-      this.queryTableData();
-    },
-    queryTableData() {
-      let loading;
-      if (this.$refs.tbArea) {
-        loading = this.$loading({
-          target: this.$refs.tbArea
+    created() {
+        this.$nextTick(() => {
+            this.initDataimmediately && this.initData();
         });
-      }
-      const actionAndParams = this.generateFetchTbDataOption();
-      request(actionAndParams).then(res => {
-        this.tbData = res.queryResult.list || [];
-        this.total = res.queryResult.total;
-      }).finally(() => {
-        loading && loading.close();
-      }).catch(err => {
-        loading && loading.close();
-      });
     },
-    generateFetchTbDataOption() {
-      let { url, method = 'get' } = this.dataOrigin;
-      return {
-        url: url + `${this.currentPage}/${this.pageSize}`,
-        method,
-        ...this.generateQueryParams(method)
-      };
+    computed: {
+        searchParamsConf() {
+            let list = this.customSearchList.length > 0 ? this.customSearchList : this.tableCols.filter((el) => el.search) || [];
+            list.forEach((item) => {
+                this.$set(this.condition, item.prop, '');
+            });
+            return list;
+            return this.customTime.length > 0 ? this.customSearchList : this.tableCols.filter((el) => el.search) || [];
+        }
     },
-    staticPageChange() {
-      this.staticTablePageData = this.dataOrigin.data.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize);
-    },
-    handlePageChange(page) {
-      this.currentPage = page;
-      this.queryTableData();
+    methods: {
+        searchParamsChange(val) {
+            if (this.newSearch) {
+                val = filterEmpty(this.condition);
+            }
+            console.log(val);
+            this.$set(this, 'filterTbDataParams', val);
+            this.currentPage = 1;
+            this.queryTableData();
+        },
+        generateQueryParams(method = 'get') {
+            let params = JSON.parse(JSON.stringify(this.dataOrigin.params ? this.dataOrigin.params : {}));
+            Object.assign(params, this.filterTbDataParams || {});
+            if (method.toLowerCase() === 'get') {
+                return { params: params };
+            } else {
+                return { data: params };
+            }
+        },
+        initData() {
+            if (this.dataOrigin.hasOwnProperty('data')) {
+                this.staticPageChange();
+                this.tbData = this.staticTablePageData;
+                this.total = this.dataOrigin.data.length;
+                this.selectRows();
+                return;
+            }
+            this.queryTableData();
+        },
+        queryTableData() {
+            let loading;
+            if (this.$refs.tbArea) {
+                loading = this.$loading({
+                    target: this.$refs.tbArea
+                });
+            }
+            const actionAndParams = this.generateFetchTbDataOption();
+            request(actionAndParams)
+                .then((res) => {
+                    this.tbData = res.queryResult.list || [];
+                    this.total = res.queryResult.total;
+                })
+                .finally(() => {
+                    loading && loading.close();
+                })
+                .catch((err) => {
+                    loading && loading.close();
+                });
+        },
+        generateFetchTbDataOption() {
+            let { url, method = 'get' } = this.dataOrigin;
+            return {
+                url: url + `${this.currentPage}/${this.pageSize}`,
+                method,
+                ...this.generateQueryParams(method)
+            };
+        },
+        staticPageChange() {
+            this.staticTablePageData = this.dataOrigin.data.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize);
+        },
+        handlePageChange(page) {
+            this.currentPage = page;
+            this.queryTableData();
+        }
     }
-  }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -221,8 +228,8 @@ export default {
         margin-bottom: 10px;
         overflow: hidden;
         .operationArea {
-			position: relative;
-			z-index: 999;
+            position: relative;
+            z-index: 9999;
             float: left;
         }
         .searchArea {

@@ -5,6 +5,7 @@
             :dataOrigin="dataOrigin"
             :tableCols="tableColList"
             :showOperation="true"
+            new-search
         >
             <template #operationArea>
                 <el-button type="primary" @click="add">新增</el-button>

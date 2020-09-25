@@ -1,23 +1,19 @@
 <template>
-    
-        <e-table ref="collectTable" :dataOrigin="dataOrigin" :tableCols="tableColList">
-            <template #expand="scope">
-                <el-form label-position="left" class="demo-table-expand">
-                    <el-form-item :label="item.label" v-for="item in expendList" :key="item.prop">
-                        <span>{{ scope.rowData[item.prop] }}</span>
-                    </el-form-item>
-                </el-form>
-            </template>
-        </e-table>
-    
+    <e-table ref="collectTable" new-search :customSearchList="filterForm" :dataOrigin="dataOrigin" :tableCols="tableColList">
+        <template #expand="scope">
+            <el-form label-position="left" class="demo-table-expand">
+                <el-form-item :label="item.label" v-for="item in expendList" :key="item.prop">
+                    <span>{{ scope.rowData[item.prop] }}</span>
+                </el-form-item>
+            </el-form>
+        </template>
+    </e-table>
 </template>
 
 <script>
-import { addExamine } from '@/api/violationExamine';
-import { violationTableURL } from '@/api/violation';
-import { violationStandardTableCols } from '@/data/staicData';
-import ETable from '@/components/common/NosearchTable';
-import axios from 'axios';
+import { trashPutTableURL, edittrashPut, addtrashPut, deletetrashPut, checktrashPut } from '@/api/storage';
+import { trashPutTableCols } from '@/data/staicData';
+import ETable from '@/components/common/ETable.vue';
 export default {
     components: {
         ETable
@@ -25,13 +21,37 @@ export default {
 
     data() {
         return {
-            labelPosition: 'left',
-            num: 1,
-            data: [],
+            filterForm: [
+                {
+                    label: '所属科室',
+                    prop: 'officeId',
+                    type: 'input'
+                },
+                {
+                    label: '废物类型',
+                    prop: 'trash',
+                    type: 'input'
+                },
+                {
+                    label: '条形编码',
+                    prop: 'code',
+                    type: 'input'
+                },
+                {
+                    label: '开始时间',
+                    prop: 'startTime',
+                    type: 'datetime'
+                },
+                {
+                    label: '结束时间',
+                    prop: 'endTime',
+                    type: 'datetime'
+                }
+            ],
             editVisible: false,
             form: {},
             dataOrigin: {
-                url: violationTableURL
+                url: trashPutTableURL
             },
             isAdd: true,
             optionsList: {}
@@ -39,28 +59,18 @@ export default {
     },
     computed: {
         expendList() {
-            return violationStandardTableCols.filter((el) => el.expand);
+            return trashPutTableCols.filter((el) => el.expand);
         },
         tableColList() {
-            return violationStandardTableCols.filter((el) => el.expand === undefined);
+            return trashPutTableCols.filter((el) => el.expand === undefined);
         },
         editColList() {
-            return violationStandardTableCols.filter((el) => el.edit);
+            return trashPutTableCols.filter((el) => el.edit);
         }
     },
 
     methods: {
-        //下发按钮
-        Issue() {
-            this.$refs.form.validate((flag) => {
-                if (flag) {
-                    addExamine(this.form).then(() => {
-                        this.$message.success(`下发成功`);
-                        this.$router.push('/inspect');
-                    });
-                }
-            });
-        }
+        
     }
 };
 </script>

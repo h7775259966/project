@@ -29,6 +29,7 @@
     "vuedraggable": "^2.17.0",
     "vuex": "^3.0.1",
     "vxe-table": "^2.9.23",
+    "xe-ajax": "^4.0.5",
     "xe-utils": "^2.7.13"
   },
   "devDependencies": {

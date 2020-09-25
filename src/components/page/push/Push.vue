@@ -1,6 +1,6 @@
 <template>
     <div>	
-		<e-table ref="collectTable" :dataOrigin="dataOrigin" :tableCols="tableColList" :customSearchList="customSearchList" :showOperation="true">
+		<e-table ref="collectTable" :dataOrigin="dataOrigin" :tableCols="tableColList" :customSearchList="customSearchList" :showOperation="true" new-search>
 			<template #expand="scope">
 				<el-form label-position="left"  class="demo-table-expand">
 					<el-form-item :label="item.label" v-for="item in expendList" :key="item.prop">

@@ -11,27 +11,32 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css'; //默认主题
 import './components/common/directives';
 import 'babel-polyfill';
+
+
 // 导入bootstrap
 // import "bootstrap"
 // import 'bootstrap/dist/js/bootstrap.min.js';
 // import "bootstrap/dist/css/bootstrap.css"
 import $ from 'jquery';
-import moment from 'moment';
+
 
 //vxe-table表格插件
 import 'xe-utils'
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/style.css'
-
 Vue.use(VXETable)
-
 // 给 vue 实例挂载全局窗口对象，例如：
 Vue.prototype.$XModal = VXETable.modal
 // 给 vue 实例挂载全局打印对象，例如：
 Vue.prototype.$XPrint = VXETable.print
 
 
+//xe-ajax异步请求数据
+import XEAjax from 'xe-ajax'
+Vue.prototype.$ajax = XEAjax
  
+
+
 Vue.prototype.$echarts = echarts
 
 Vue.config.productionTip = false
