@@ -66,9 +66,7 @@ export default {
 					prop: 'endTime',
 				}	
 			],
-			customTime:[
-				
-			]
+			
 			
         };
     },

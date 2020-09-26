@@ -29,12 +29,15 @@
                         <el-form-item>
                             <el-button @click="searchParamsChange" type="primary">搜索</el-button>
                         </el-form-item>
-                    </el-col>
+                    </el-col> 
                 </el-row>
+                
             </el-form>
+            
             <template v-else-if="showSearch">
                 <search-params class="searchArea" @change="searchParamsChange" :params="searchParamsConf"></search-params>
             </template>
+            
         </div>
         <!-- 表格区域 -->
         <el-table :data="tbData" ref="table">
@@ -220,16 +223,20 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less" >
 .tb {
     background: #fff;
     padding: 15px;
     .operation {
         margin-bottom: 10px;
         overflow: hidden;
+        .el-form{
+            position: relative;
+            z-index: 0;
+        }
         .operationArea {
             position: relative;
-            z-index: 9999;
+            z-index: 1;
             float: left;
         }
         .searchArea {

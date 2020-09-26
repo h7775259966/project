@@ -6,6 +6,7 @@
             :tableCols="tableColList"
             :customSearchList="customSearchList"
             :showOperation="true"
+            new-search
         >
             <template #operationArea v-if="kind === 'edit'">
                 <el-button type="primary" @click="add">添加</el-button>
@@ -93,11 +94,10 @@ import moment from 'moment';
 import { fillPlan, addPlan, delPlan, editPlan, getPlan } from '@/api/plan';
 import ETable from '@/components/common/ETable';
 import { OrganizationInformation } from '@/data/staicData';
-import Timecom from '../../Base/time';
 export default {
     components: {
         ETable,
-        Timecom
+        
     },
     props: {
         kind: {

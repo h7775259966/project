@@ -6,6 +6,7 @@
             :tableCols="tableColList"
             :customSearchList="customSearchList"
             :showOperation="true"
+            new-search
         >
             <template #operationArea v-if="kind === 'edit'">
                 <el-button type="primary" @click="add">添加</el-button>

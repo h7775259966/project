@@ -5,7 +5,7 @@
 
 <script>
 import { collectTableURL} from '@/api/admin';
-import Notice from './notice';
+import Notice from './components/notice';
 export default {
 	components: {
 		Notice

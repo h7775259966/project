@@ -2,6 +2,7 @@
     <div>
         <e-table
             ref="collectTable"
+            new-search
             :dataOrigin="dataOrigin"
             :tableCols="tableColList"
             :showOperation="true"
@@ -70,7 +71,7 @@
 
 <script>
 import { dictListURL, addDict, delDict, editDict, findDict } from '@/api/date';
-import ETable from '@/components/common/ETable';
+import ETable from '@/components/common/ETable.vue';
 import { dataDictionarys } from '@/data/staicData';
 export default {
     components: {
