@@ -25,7 +25,15 @@
                     :rules="[{ required: true, message: '请输入医院名称', trigger: 'blur' }]"
                 >
                     <el-input v-model="form.hospitalName"></el-input>
-                </el-form-item>
+				</el-form-item>
+				<el-form-item prop="hospitalNumber"
+                    label="医院区域">
+					<el-cascader
+						ref="office"
+						@change="getOffice"
+						:props="props"
+					></el-cascader>
+				</el-form-item>
                 <el-form-item
                     prop="hospitalNumber"
                     label="医院编号"
@@ -96,7 +104,7 @@
 </template>
 
 <script>
-import { hospitalTableURL, editHospital, addHospital, deleteHospital } from '@/api/admin';
+import { hospitalTableURL, editHospital, addHospital, deleteHospital, provinceList, cityList, zoneList } from '@/api/admin';
 import ETable from '@/components/common/ETable';
 import { hospitalTableCols } from '@/data/staicData';
 export default {
@@ -108,7 +116,53 @@ export default {
         return {
             tableData: [],
             editVisible: false,
-            form: {},
+            form: {
+				
+			},
+			props: {
+				lazy: true,
+				lazyLoad: (node, resolve) => {
+					const { level, value } = node;
+					let nodes = [];
+					if (level === 0) {
+						provinceList(value).then((res) => {
+							nodes = res.queryResult.list.map((item) => {
+								return {
+									label: item.area,
+									value: {provinceId: item.provinceId},
+									leaf: false
+								};
+							});
+							resolve(nodes);
+						});
+						resolve(nodes);
+					}
+					if (level === 1) {
+						cityList(value.provinceId).then((res) => {
+							nodes = res.queryResult.list.map((item) => {
+								return {
+									label: item.area,
+									value:{cityId: item.cityId},
+									leaf: false
+								};
+							});
+							resolve(nodes);
+						});
+					}
+					if (level === 2) {
+						zoneList(value.cityId).then((res) => {
+							nodes = res.queryResult.list.map((item) => {
+								return {
+									label: item.area,
+									value: {zoneId: item.zoneId},
+									leaf: true
+								};
+							});
+							resolve(nodes);
+						});
+					}
+				}
+			},
             dataOrigin: {
                 url: hospitalTableURL
             },
@@ -137,8 +191,14 @@ export default {
         editColList() {
             return hospitalTableCols.filter((el) => el.edit);
         }
-    },
+	},
+	created() {
+		provinceList()
+	},
     methods: {
+		getOffice(v) {
+            Object.assign(this.form, ...v);
+        },
         proving(e) {
             let boolean = new RegExp('^[1-9][0-9]*$').test(e.target.value);
             if (!boolean) {

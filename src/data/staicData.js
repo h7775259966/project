@@ -148,7 +148,7 @@ export const officeTableCols = [
 	},
 	{
 		label: '所属部门',
-		prop: 'departmentName',
+		prop: 'departmentId',
 		type: 'select',
 		edit: true
 	},
@@ -246,7 +246,7 @@ export const collectTableCols = [
 	},
 	{
 		label: '所属医院',
-		prop: 'hospitalName',
+		prop: 'hospitalId',
 		type: 'select',
 		edit: true
 	},

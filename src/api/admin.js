@@ -33,6 +33,26 @@ export function allHospital() {
 	})
 }
 
+// 获取省
+export function provinceList() {
+	return request({
+		url: `api/province/all`,
+		method: 'get'
+	})
+} 
+// 获取市
+export function cityList(id) {
+	return request({
+		url: `api/city/findByProvinceId/${id}`
+	})
+}
+// 获取区
+export function zoneList(id) {
+	return request({
+		url: `api/zone/findByCityId/${id}`
+	})
+}
+
 // 部门
 export const departmentTableURL = 'api/department/list/'
 // 新增

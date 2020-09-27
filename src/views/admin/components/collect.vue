@@ -11,6 +11,9 @@
 					</el-form-item>
 				</el-form>
 			</template>
+			<template #hospitalId="scope">
+				{{scope.rowData.hospitalName}}
+			</template>
 			<template #operation="scope">
 				<el-button
 					type="text"
@@ -79,7 +82,7 @@ export default {
     methods: {
 		allHospital() {
 			allHospital().then(res => {
-				this.optionsList['hospitalName'] = res.queryResult.list.map(el => ({label: el.hospitalName, value: el.hospitalId}));
+				this.optionsList['hospitalId'] = res.queryResult.list.map(el => ({label: el.hospitalName, value: el.hospitalId}));
 			})
 		},
         // 删除操作

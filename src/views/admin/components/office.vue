@@ -11,6 +11,9 @@
 					</el-form-item>
 				</el-form>
 			</template>
+			<template #departmentId="scope">
+				{{scope.rowData.departmentName}}
+			</template>
 			<template #operation="scope">
 				<el-button
 					type="text"
@@ -79,7 +82,7 @@ export default {
     methods: {
 		allDepartment() {
 			allDepartment().then(res => {
-				this.optionsList['departmentName'] = res.queryResult.list.map(el => ({label: el.departmentName, value: el.departmentId}));
+				this.optionsList['departmentId'] = res.queryResult.list.map(el => ({label: el.departmentName, value: el.departmentId}));
 			})
 		},
         // 删除操作
