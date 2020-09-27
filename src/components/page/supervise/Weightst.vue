@@ -1,27 +1,27 @@
 <template>
-    <div style="background-color: #fff;">
+    <div style="background-color: #fff">
         <div class="title">
             <h2>当天医废重量统计</h2>
         </div>
         <div class="container-fluid listweight">
             <div class="row">
-                <div class="col-lg-2 bg-warning" style="width: 20%;">
+                <div class="col-lg-2 bg-warning" style="width: 20%">
                     <strong>0</strong>
                     <span>感染性</span>
                 </div>
-                <div class="col-lg-2 bg-success" style="width: 20%;">
+                <div class="col-lg-2 bg-success" style="width: 20%">
                     <strong>0</strong>
                     <span>损伤性</span>
                 </div>
-                <div class="col-lg-2 bg-info" style="width: 20%;">
+                <div class="col-lg-2 bg-info" style="width: 20%">
                     <strong>0</strong>
                     <span>病理性</span>
                 </div>
-                <div class="col-lg-2 bg-warning" style="width: 20%;">
+                <div class="col-lg-2 bg-warning" style="width: 20%">
                     <strong>0</strong>
                     <span>药物性</span>
                 </div>
-                <div class="col-lg-2 bg-danger" style="width: 20%;">
+                <div class="col-lg-2 bg-danger" style="width: 20%">
                     <strong>0</strong>
                     <span>化学性</span>
                 </div>
@@ -57,138 +57,117 @@
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>-->
-        <div class="container">
-            <div class="schart-box">
-                <div class="content-title">柱状图</div>
-                <schart class="schart" canvasId="bar" :options="options1"></schart>
+        <div class="ehcats">
+            <div class="container">
+                <bar-echarts></bar-echarts>
             </div>
-            <div class="schart-box">
-                <div class="content-title">折线图</div>
-                <schart class="schart" canvasId="line" :options="options2"></schart>
+            <div class="line">
+                <lin-echarts></lin-echarts>
             </div>
-            <div class="schart-box">
-                <div class="content-title">饼状图</div>
-                <schart class="schart" canvasId="pie" :options="options3"></schart>
-            </div>
-            <div class="schart-box">
-                <div class="content-title">环形图</div>
-                <schart class="schart" canvasId="ring" :options="options4"></schart>
-            </div>
+        </div>
+        <div class="barEcharts">
+            <div id="pieGraph" style="height: 350px"></div>
         </div>
     </div>
 </template>
 
 <script>
-import Schart from 'vue-schart';
+import barEcharts from '@/components/echarts/barEcharts';
+import linEcharts from '@/components/echarts/lineEcharts';
+
+let echarts = require('echarts/lib/echarts');
+// 引入柱状图
+require('echarts/lib/chart/bar');
+// 引入柱状图
+require('echarts/lib/chart/pie');
+require('echarts/lib/component/tooltip');
+require('echarts/lib/component/title');
+
 export default {
-    name: 'basecharts',
     components: {
-        Schart
+        barEcharts,
+        linEcharts
     },
     data() {
         return {
-            value: '',
-            options1: {
-                type: 'bar',
-                title: {
-                    text: '最近一周各品类销售图'
-                },
-                bgColor: '#fbfbfb',
-                labels: ['周一', '周二', '周三', '周四', '周五'],
-                datasets: [
-                    {
-                        label: '家电',
-                        fillColor: 'rgba(241, 49, 74, 0.5)',
-                        data: [234, 278, 270, 190, 230]
-                    },
-                    {
-                        label: '百货',
-                        data: [164, 178, 190, 135, 160]
-                    },
-                    {
-                        label: '食品',
-                        data: [144, 198, 150, 235, 120]
-                    }
-                ]
-            },
-            options2: {
-                type: 'line',
-                title: {
-                    text: '最近几个月各品类销售趋势图'
-                },
-                bgColor: '#fbfbfb',
-                labels: ['6月', '7月', '8月', '9月', '10月'],
-                datasets: [
-                    {
-                        label: '家电',
-                        data: [234, 278, 270, 190, 230]
-                    },
-                    {
-                        label: '百货',
-                        data: [164, 178, 150, 135, 160]
-                    },
-                    {
-                        label: '食品',
-                        data: [114, 138, 200, 235, 190]
-                    }
-                ]
-            },
-            options3: {
-                type: 'pie',
-                title: {
-                    text: '服装品类销售饼状图'
-                },
-                legend: {
-                    position: 'left'
-                },
-                bgColor: '#fbfbfb',
-                labels: ['T恤', '牛仔裤', '连衣裙', '毛衣', '七分裤', '短裙', '羽绒服'],
-                datasets: [
-                    {
-                        data: [334, 278, 190, 235, 260, 200, 141]
-                    }
-                ]
-            },
-            options4: {
-                type: 'ring',
-                title: {
-                    text: '环形三等分'
-                },
-                showValue: false,
-                legend: {
-                    position: 'bottom',
-                    bottom: 40
-                },
-                bgColor: '#fbfbfb',
-                labels: ['vue', 'react', 'angular'],
-                datasets: [
-                    {
-                        data: [500, 500, 500]
-                    }
-                ]
-            }
+            value: ''
         };
+    },
+    mounted() {
+        this.drawBar();
+    },
+    methods: {
+        drawBar() {
+            // 基于dom，初始化echarts实例
+            let barGraph = echarts.init(document.getElementById('pieGraph'));
+            // 绘制图表
+            barGraph.setOption({
+                tooltip: {
+                    trigger: 'axis',
+                },
+                
+                legend: {
+                    data: ['感染性', '病理性', '损伤性', '药物性', '化学性']
+                },
+                
+                xAxis: {
+                    type: 'category',
+                    name: '时间',
+                    splitLine: { show: false },
+                                axisPointer: {
+                type: 'shadow'
+            },
+                    data: ['2020-01', '2020-02', '2020-03', '2020-04', '2020-05', '2020-06', '2020-07', '2020-08', '2020-09', '2020-10', '2020-11', '2020-12']
+                },
+                grid: {
+                    left: '2%',
+                    right: '10%',
+                    top: '8%',
+                    containLabel: true
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '重量(kg)',
+                    splitLine: { show: true },
+                    
+                },
+                series: [
+                    {
+                        name: '感染性',
+                        type: 'bar',
+                        data: [1, 11, 1, 13, 1, 13, 10, 1, 13, 1, 13,],
+
+                    },
+                    {
+                        name: '病理性',
+                        type: 'bar',
+                        data: [1, 3, 2, 5, 3, 2, 0, 1, 13, 1, 13,],
+                    },
+                    {
+                        name: '损伤性',
+                        type: 'bar',
+                        data: [1, 14, 10, 13, 15, 13, 10, 1, 13, 1, 13,],
+                      
+                      
+                    },
+                    {
+                        name: '药物性',
+                        type: 'bar',
+                        data: [17, 14, 15, 13, 18, 13, 10, 1, 13, 1, 13,],        
+                    },
+                    {
+                        name: '化学性',
+                        type: 'bar',
+                        data: [7, 1, 5, 3, 12, 3, 9, 1, 13, 1, 13,], 
+                    }
+                ]
+            });
+        }
     }
 };
 </script>
 
 <style scoped lang="less">
-.schart-box {
-    display: inline-block;
-    margin: 20px;
-}
-.schart {
-    width: 600px;
-    height: 400px;
-}
-.content-title {
-    clear: both;
-    font-weight: 400;
-    line-height: 50px;
-    margin: 10px 0;
-    font-size: 22px;
-    color: #1f2f3d;
-}
 .title {
     border-bottom: 1px dotted #ddd;
     padding-bottom: 5px;
@@ -246,8 +225,7 @@ export default {
         }
     }
 }
-.time-1{
-    
+.time-1 {
     height: 40px;
     line-height: 40px;
     width: 100%;
@@ -257,12 +235,24 @@ export default {
     border-top: 4px solid #eee;
     border-bottom: 1px solid #eee;
     background: #f9f8f8;
-    
 }
-.block{
+.block {
     float: left;
 }
 .block-2 {
     float: right;
+}
+.ehcats {
+    overflow: hidden;
+    margin-top: 2%;
+    .container {
+        float: left;
+    }
+    .line {
+        float: right;
+    }
+}
+.barEcharts{
+    margin-top: 5%;
 }
 </style>
