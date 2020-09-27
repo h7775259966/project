@@ -72,8 +72,8 @@
 </template>
 
 <script>
-import barEcharts from '@/components/echarts/barEcharts';
-import linEcharts from '@/components/echarts/lineEcharts';
+import barEcharts from '@/components/supervise/compoents/barEcharts';
+import linEcharts from '@/components/supervise/compoents/lineEcharts';
 
 let echarts = require('echarts/lib/echarts');
 // 引入柱状图
