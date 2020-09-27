@@ -91,7 +91,7 @@
 
 <script>
 import moment from 'moment';
-import { fillPlan, addPlan, delPlan, editPlan, getPlan } from '@/api/plan';
+import { PlanTableURL, addPlan, deletePlan, editPlan, getPlan } from '@/api/plan';
 import ETable from '@/components/common/ETable';
 import { OrganizationInformation } from '@/data/staicData';
 export default {
@@ -114,7 +114,7 @@ export default {
             editVisible: false,
             form: {},
             dataOrigin: {
-                url: fillPlan
+                url: PlanTableURL
             },
             isAdd: true,
             customSearchList: [
@@ -164,7 +164,7 @@ export default {
             })
                 .then((falg) => {
                     falg === 'confirm' &&
-                        delPlan(row.planId).then(() => {
+                        deletePlan(row.planId).then(() => {
                             this.$message.success('删除成功');
                             this.$refs.planTable.queryTableData();
                         });

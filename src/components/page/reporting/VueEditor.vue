@@ -89,11 +89,9 @@ import moment from 'moment';
 import { addNoticeTableURL, addNotice, deleteNotice, editNotice} from '@/api/notice';
 import ETable from '@/components/common/NosearchTable';
 import {InformationReporting} from '@/data/staicData';
-import Timecom from '../../Base/time';
 export default {
 	components: {
         ETable,
-		Timecom
 	},
 	props: {
 		kind: {
