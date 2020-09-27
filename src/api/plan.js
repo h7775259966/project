@@ -2,7 +2,7 @@ import request from '../utils/request'
 
 // 获取上报计划
 
-export const fillPlan = 'api/plan/list/'
+export const PlanTableURL = 'api/plan/list/'
 
 export function addPlan(data) {
 	return request({
@@ -12,7 +12,7 @@ export function addPlan(data) {
 	})
 }
 
-export function delPlan(id,data) {
+export function deletePlan(id,data) {
 	return request({
 		url: `api/plan/del/${id}`,
 		method: 'delete',

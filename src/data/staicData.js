@@ -280,6 +280,19 @@ export const collectTableCols = [
 //公告录入
 export const noticeTableCols = [
 	{
+		label: '创建时间',
+		prop: 'createDate',
+		type: 'input',
+		formatter: function (row, column) {
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
+
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
+	},
+	{
 		label: '标题',
 		prop: 'headline',
 		search: true,
@@ -486,6 +499,7 @@ export const planTableCols = [
 	{
 		label: '计划名称',
 		prop: 'planName',
+		search: true,
 		type: 'input',
 		edit: true
 	},
@@ -503,14 +517,14 @@ export const planTableCols = [
         },
 	},
 	{
-		label: '上报内容',
-		prop: 'content',
+		label: '发布单位',
+		prop: 'writeUnit',
 		type: 'input',
 		edit: true
 	},
 	{
-		label: '上报医院',
-		prop: 'hospitalId',
+		label: '上报内容',
+		prop: 'content',
 		type: 'input',
 		edit: true
 	},

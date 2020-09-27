@@ -75,7 +75,6 @@
 
 <script>
 import SearchParams from '../Base/searchParams';
-import Time from '../Base/time';
 import request from '../../utils/request.js';
 import { filterEmpty } from '@/utils/index.js';
 
@@ -83,7 +82,7 @@ export default {
     name: 'ETable',
     components: {
         SearchParams,
-        Time
+       
     },
     props: {
         newSearch: {
