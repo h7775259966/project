@@ -4,13 +4,19 @@
             <template #operationArea>
                 <el-button type="primary" @click="add">新增</el-button>
             </template>
-            <template #expand="scope">
+            <template #expand="scope" >
                 <el-form label-position="left" class="demo-table-expand">
                     <el-form-item :label="item.label" v-for="item in expendList" :key="item.prop">
-                        <span>{{ scope.rowData[item.prop] }}</span>
+                        <span>{{ scope.rowData[item.prop] }} </span>
                     </el-form-item>
                 </el-form>
             </template>
+            <template #regime="scope" >
+				{{scope.rowData.regime === 1 ? '公立' : '民营'}}
+			</template>
+            <template #processingMode="scope" >
+				{{scope.rowData.processingMode === 1 ? '自行处理' : '集中处理'}}
+			</template>
             <template #operation="scope">
                 <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.rowData)">编辑</el-button>
                 <el-button type="text" icon="el-icon-delete" class="red" @click="handleDelete(scope.rowData)">删除</el-button>
@@ -26,7 +32,14 @@
                 >
                     <el-input v-model="form.hospitalName"></el-input>
 				</el-form-item>
-				
+				<el-form-item prop="hospitalNumber"
+                    label="医院区域">
+					<el-cascader
+						ref="office"
+						@change="getOffice"
+						:props="props"
+					></el-cascader>
+				</el-form-item>
                 <el-form-item
                     prop="hospitalNumber"
                     label="医院编号"
@@ -40,6 +53,12 @@
                     :rules="[{ required: true, message: '请输入医院等级', trigger: 'blur' }]"
                 >
                     <el-input v-model="form.grade" type="number" placeholder="请输入数字" @keyup.native="proving($event)" min="1"></el-input>
+                </el-form-item>
+                <el-form-item prop="regime" label="医院体制">
+                    <el-select v-model="form.regime" placeholder="请选择">
+                        <el-option :value="1" label="公立"></el-option>
+                        <el-option :value="2" label="民营"></el-option>
+                    </el-select>
                 </el-form-item>
                 <el-form-item prop="officeNumber" label="科室数">
                     <el-input v-model="form.officeNumber" type="number"  placeholder="请输入数字"  @keyup.native="proving($event)" min="1"></el-input>
@@ -61,8 +80,9 @@
                     <el-input v-model="form.hospitalContent"></el-input>
                 </el-form-item>
                 <el-form-item prop="processingMode" label="医废处置方式">
-                    <el-select v-model="form.processingMode">
-                        <el-option v-for="o in options" :key="o.prop" :label="o.label" :value="o.value"></el-option>
+                   <el-select v-model="form.processingMode" placeholder="请选择">
+                        <el-option :value="1" label="自行处理"></el-option>
+                        <el-option :value="2" label="集中处理"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item prop="remarks" label="备注">
@@ -73,20 +93,6 @@
                         <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
                 </el-form-item>
-
-                <!-- <el-form-item :prop="item.prop" :label="item.label" v-for="item in editColList" :key="item.prop">
-					<el-input v-if="item.type === 'input'" v-model="form[item.prop]"></el-input>
-					<el-select v-if="item.type === 'select'" v-model="form[item.prop]">
-						<el-option v-for="o in (item.options || optionsList[item.prop])" :key="o.prop" :label="o.label" :value="o.value"></el-option>
-					</el-select> -->
-                <!--action需要替换为上传地址 成功后将返回的地址写入form对应的图片字段即可-->
-                <!-- <el-upload
-						v-if="item.type === 'img'" 
-						action="https://jsonplaceholder.typicode.com/posts/"
-						:limit="1">
-						<el-button size="small" type="primary">点击上传</el-button>
-					</el-upload>
-				</el-form-item> -->
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editVisible = false">取 消</el-button>
@@ -164,17 +170,28 @@ export default {
             options: [
                 {
                     label: '自行处理',
-                    // 这里的value字段我不确定 后期根据实际修改就可以了
-                    value: '0'
+                    value: '1'
                 },
                 {
                     label: '集中处理',
+                    value: '2'
+                }
+            ],
+            regime: [
+                {
+                    label: '公立',
                     value: '1'
+                },
+                {
+                    label: '民营',
+                    value: '2'
                 }
             ]
         };
     },
+    
     computed: {
+        
         expendList() {
             return hospitalTableCols.filter((el) => el.expand);
         },
@@ -183,7 +200,7 @@ export default {
         },
         editColList() {
             return hospitalTableCols.filter((el) => el.edit);
-        }
+        },
 	},
 	created() {
 		provinceList()

@@ -22,6 +22,39 @@ export const hospitalTableCols = [
 		edit: true
 	},
 	{
+		label: '医院体制',
+		prop: 'regime',
+		type: 'input',
+		edit: true,
+		regime: [
+			{
+				label: '公立',
+				value: '0'
+			},
+			{
+				label: '民营',
+				value: '1'
+			}
+		]
+	},
+	{
+		label: '医废处置方式',
+		prop: 'processingMode',
+	
+		edit: true,
+		type: 'select',
+		options: [
+			{
+				label: '自行处理',
+				value: '1'
+			},
+			{
+				label: '集中处理',
+				value: '2'
+			}
+		],
+	},
+	{
 		label: '创建时间',
 		prop: 'createDate',
 		// formatter: (r, w) => moment(r[w]).format('YYYY-MM-DD HH:mm:ss')
@@ -34,21 +67,21 @@ export const hospitalTableCols = [
 		},
 	},
 	{
-		label: '科室数',
+		label: '科室数:',
 		prop: 'officeNumber',
 		expand: true,
 		type: 'input',
 		edit: true
 	},
 	{
-		label: '床位数',
+		label: '床位数:',
 		prop: 'bedNumber',
 		expand: true,
 		type: 'input',
 		edit: true
 	},
 	{
-		label: '平均医废量/日',
+		label: '平均医废量/日:',
 		prop: 'averageTrash',
 		expand: true,
 		type: 'input',
@@ -61,23 +94,7 @@ export const hospitalTableCols = [
 		expand: true,
 		edit: true
 	},
-	{
-		label: '医废处置方式',
-		prop: 'processingMode',
-		expand: true,
-		edit: true,
-		type: 'select',
-		options: [
-			{
-				label: '自行处理',
-				value: '0'
-			},
-			{
-				label: '集中处理',
-				value: '1'
-			}
-		]
-	},
+	
 	{
 		label: '医院说明',
 		prop: 'hospitalContent',
