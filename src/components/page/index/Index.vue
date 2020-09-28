@@ -89,8 +89,6 @@ export default {
     }
 };
 </script>
-
-
 <style lang="less" scoped>
 header {
     height: 45px;
