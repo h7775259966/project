@@ -30,6 +30,7 @@ export default {
     },
     mounted() {
         this.drawBar();
+        this.outweight(data);
     },
     methods: {
         drawBar() {
