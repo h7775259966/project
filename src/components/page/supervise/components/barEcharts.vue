@@ -1,12 +1,14 @@
 <template>
     <div>
         <div class="charts">
-            <div :id="id" style="min-height: 350px; width: 500px; height: 400px"></div>
+            <div :id="id" style="min-height: 350px; width: 500px; height: 400px" ></div>
         </div>
     </div>
 </template>
 
 <script>
+import {barweight} from '@/api/weightst';
+
 let echarts = require('echarts/lib/echarts');
 
 require('echarts/lib/chart/bar');
@@ -67,14 +69,16 @@ export default {
                     }
                 ]
             });
-        }
+        },
+        
+
     }
 };
 </script>
 
 <style >
 .charts {
-    width: 600px;
+    width: 400px;
     height: 400px;
 }
 </style>

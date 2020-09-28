@@ -10,7 +10,7 @@
                     <el-col :offset="1" v-for="(item, index) in searchParamsConf" :key="index" :span="item.type === 'datetime' ? 6 : 4">
                         <el-form-item :prop="item.prop" :label="item.label">
                             <el-input v-if="item.type === 'input'" v-model="condition[item.prop]" 
-							:placeholder="'请输入' + item.label"/>
+							:placeholder="'请输入' + item.label"  clearable />
                             <el-select v-else-if="item.type === 'select'" clearable v-model="condition[item.prop]">
                                 <el-option v-for="jtem in item.options" :key="jtem.value" :label="jtem.label" :value="jtem.value" 
 								:placeholder="'请输入' + item.label"/>

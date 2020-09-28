@@ -163,7 +163,7 @@ export default {
     this.nowTimes();
     this.wasteCharts();
     this.warningCharts();
-    this.loadMap("430000", "湖南省");
+    this.loadMap("43000", "湖南省");
   },
   methods: {
     // 医废收集总量统计

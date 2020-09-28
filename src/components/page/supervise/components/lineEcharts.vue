@@ -97,7 +97,7 @@ export default {
 
 <style>
 .charts {
-    width: 600px;
+    width: 500px;
     height: 400px;
 }
 </style>

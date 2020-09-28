@@ -219,7 +219,7 @@ const router = new Router({
         component: () => import('../components/page/collection/Collecthistory.vue'),
         meta: { title: '收集历史' }
       },
-      //医废出库
+      //医废出库 outlibrary
       {
         path: '/maintain',
         component: () => import('../components/page/outlibrary/Maintain.vue'),

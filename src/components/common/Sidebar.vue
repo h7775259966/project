@@ -9,7 +9,6 @@
             active-text-color="#20a0ff"
             unique-opened
             router
-            :default-openeds="['1', '3']"
         >
             <!-- <el-submenu index="1">
               <template slot="title"><i class="el-icon-first-aid-kit"></i>医废监测</template>

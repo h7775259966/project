@@ -65,7 +65,9 @@
                 <lin-echarts></lin-echarts>
             </div>
         </div>
+        <span>医废月统计</span>
         <div class="barEcharts">
+            
             <div id="pieGraph" style="height: 350px"></div>
         </div>
     </div>
@@ -95,6 +97,7 @@ export default {
     },
     mounted() {
         this.drawBar();
+        
     },
     methods: {
         drawBar() {
@@ -162,7 +165,10 @@ export default {
                     }
                 ]
             });
-        }
+         
+        },
+           
+       
     }
 };
 </script>
@@ -253,6 +259,9 @@ export default {
     }
 }
 .barEcharts{
-    margin-top: 5%;
+    margin-top: 2%;
+    span{
+        padding: 5% 0;
+    }
 }
 </style>
