@@ -95,6 +95,7 @@ export default {
     },
     mounted() {
         this.drawBar();
+        
     },
     methods: {
         drawBar() {
@@ -162,7 +163,10 @@ export default {
                     }
                 ]
             });
-        }
+         
+        },
+           
+       
     }
 };
 </script>
