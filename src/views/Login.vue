@@ -4,11 +4,11 @@
             <el-form class="form-box" :model="param" :rules="rules" ref="login">
                 <el-form-item class="input-box" prop="username">
                     <span class="input-icon icon-user"></span>
-                    <input class="input-text" type="text" placeholder="请输入用户名(随便填)" v-model="param.username" />
+                    <input class="input-text" type="text"  placeholder="请输入用户名" v-model="param.username" />
                 </el-form-item>
                 <el-form-item class="input-box" prop="password">
                     <span class="input-icon icon-password"></span>
-                    <input class="input-text" type="password" placeholder="请输入密码(随便填)" v-model="param.password"
+                    <input class="input-text" type="password" placeholder="请输入密码" v-model="param.password"  
                     />
                     <!--  @keyup.enter.native="submitForm()" -->
                 </el-form-item>
@@ -28,8 +28,8 @@ export default {
     data: function () {
         return {
             param: {
-                username: '',
-                password: '',
+                username: 'admin',
+                password: '123123',
             },
             rules: {
                 username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
@@ -40,7 +40,6 @@ export default {
     methods: {
         // 跳转
         submitForm() {
-            // this.$router.push('/Index');
             this.$refs.login.validate(valid => {
                 if (valid) {
                     this.$message.success('登录成功');

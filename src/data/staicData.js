@@ -665,7 +665,7 @@ export const OrganizationInformation=[
 export const trashCollectTableCols = [
 	{
 		label: '所属科室',
-		prop: 'officeId',
+		prop: 'officeName',
 		search: true,
 		type: 'input',
 	},
@@ -693,7 +693,7 @@ export const trashCollectTableCols = [
 	},
 	{
 		label: '废物类型',
-		prop: 'trashId',
+		prop: 'trashType',
 		search: true,
 		type: 'input',
 	},
@@ -728,7 +728,7 @@ export const trashCollectTableCols = [
 export const trashPutTableCols = [
 	{
 		label: '所属科室',
-		prop: 'officeId',
+		prop: 'officeName',
 		search: true,
 		type: 'input',
 	},
@@ -762,7 +762,7 @@ export const trashPutTableCols = [
 	},
 	{
 		label: '废物类型 ',
-		prop: 'trashId',
+		prop: 'trashType',
 		type: 'input',
 	},
 	{
@@ -890,6 +890,50 @@ export const trashCollectHistoryTableCols = [
 		type: 'input',
 	},
 ]
+
+//信息维护
+//出库操作
+export const trashOutTableCols = [
+	{
+		label: '收集时间',
+		prop: 'collectTime',
+		formatter: function (row, column) {
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
+	},
+	{
+		label: '出库状态',
+		prop: 'status',
+		search: true,
+		type: 'input',
+	},
+	{
+		label: '收集重量（kg）',
+		prop: 'collectWeight',
+		type: 'input',
+	},
+	{
+		label: '已入库重量（kg）',
+		prop: 'putWeight',
+		type: 'input',
+	},
+	
+	{
+		label: '出库重量（kg）',
+		prop: 'outWeight',
+		type: 'input',
+	},
+	{
+		label: '可出库明细',
+		prop: 'outDetail',
+		type: 'input',
+	},
+]
+
 
 // 数据字典
 export const dataDictionarys=[
