@@ -934,6 +934,58 @@ export const trashOutTableCols = [
 	},
 ]
 
+//设备管理
+export const equipmentTableCols = [
+	{
+		label: '所属医疗机构',
+		prop: 'hospitalId',
+		search: true,
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '设备名称',
+		prop: 'equipmentName',
+		search: true,
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '设备编号',
+		prop: 'equipmentNum',
+		search: true,
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '设备生产商',
+		prop: 'equipmentFirm',
+		type: 'input',
+		edit: true
+	},
+	
+	{
+		label: 'SIM卡号',
+		prop: 'equipmentSIM',
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '备注',
+		prop: 'remarks',
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '设备状态',
+		prop: 'status',
+		type: 'input',
+	},
+	{
+		label:'操作',
+		prop:'operation',
+	}
+]
 
 // 数据字典
 export const dataDictionarys=[

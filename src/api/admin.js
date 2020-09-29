@@ -26,6 +26,7 @@ export function deleteHospital(id) {
 		method: 'delete'
 	})
 }
+//获取所有医院
 export function allHospital() {
 	return request({
 		url: `api/hospital/all`,
@@ -119,7 +120,7 @@ export function deleteOffice(id) {
 		method: 'delete'
 	})
 }
-
+//所有科室
 export function allOffice() {
 	return request({
 		url: `api/office/all/`,

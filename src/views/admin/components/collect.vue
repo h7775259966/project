@@ -114,9 +114,9 @@ export default {
         },
         // 保存编辑
         saveEdit() {
-			this.$refs.form.validate(flag => {				
-				this.$refs.form.validate(flag => {
-					if(this.isAdd) {	
+			this.$refs.form.validate(flag => {					
+				if (flag) {
+                    if(this.isAdd) {	
 						addCollect(this.form).then(() => {
 							this.closeDialog();
 							this.$message.success(`添加成功`);
@@ -129,7 +129,7 @@ export default {
 							this.$refs.collectTable.queryTableData();
 						})
 					}
-			    })	
+                }
 			})
         },
     }
