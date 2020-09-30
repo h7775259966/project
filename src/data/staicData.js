@@ -939,7 +939,6 @@ export const equipmentTableCols = [
 	{
 		label: '所属医疗机构',
 		prop: 'hospitalId',
-		search: true,
 		type: 'input',
 		edit: true
 	},

@@ -17,19 +17,11 @@
             </template>
         </e-table>
         <!-- 编辑框 -->
-        <el-dialog :title="isAdd ? '新增' : '编辑'" :visible.sync="editVisible" width="30%">
+        <!-- <el-dialog :title="isAdd ? '新增' : '编辑'" :visible.sync="editVisible" width="30%">
             <el-form ref="form" :model="form" label-width="auto">
                 <template v-for="item in editColList">
                     <el-form-item :prop="item.prop" v-if="item.prop !== 'officeName'" :label="item.label" :key="item.prop">
                         <el-input v-if="item.type === 'input'" v-model="form[item.prop]"></el-input>
-                        <el-select v-else-if="item.type === 'select'" v-model="form[item.prop]">
-                            <el-option
-                                v-for="o in item.options || optionsList[item.prop]"
-                                :key="o.prop"
-                                :label="o.label"
-                                :value="o.value"
-                            ></el-option>
-                        </el-select>
                         <el-cascader
                             ref="office"
                             @change="getOffice"
@@ -43,7 +35,37 @@
                 <el-button @click="editVisible = false">取 消</el-button>
                 <el-button type="primary" @click="saveEdit">确 定</el-button>
             </span>
-        </el-dialog>
+        </el-dialog> -->
+        <el-dialog :title="isAdd ? '新增' : '编辑'" :visible.sync="editVisible" width="30%">
+			<el-form ref="form" :model="form" label-width="auto" >
+				<el-form-item prop="nurseName" label="护士姓名"
+				:rules="[
+					{ required: true, message: '请输入护士姓名', trigger: 'blur' },
+				]">
+					<el-input v-model="form.nurseName"></el-input>
+				</el-form-item>
+				<el-form-item prop="nurseCode" label="护士条形码"
+				:rules="[
+					{ required: true, message: '请输入护士条形码', trigger: 'blur' },
+				]">
+					<el-input v-model="form.nurseCode"></el-input>
+				</el-form-item>
+                <el-form-item  label="所属部门科室">
+                    <el-cascader
+                        ref="office"
+                        @change="getOffice"
+                        :props="props"
+                    ></el-cascader>
+                </el-form-item>
+				<el-form-item prop="remarks" label="备注">
+					<el-input v-model="form.remarks"></el-input>
+				</el-form-item>
+			</el-form>
+            <span slot="footer" class="dialog-footer">
+				<el-button @click="editVisible = false">取 消</el-button>
+				<el-button type="primary" @click="saveEdit">确 定</el-button>
+			</span>
+		</el-dialog>
     </div>
 </template>
 
@@ -115,6 +137,7 @@ export default {
     mounted() {
         this.allDepartment();
         this.allOffice();
+        // console.log( this.optionsList)
     },
     methods: {
         getOffice(v) {
@@ -132,7 +155,7 @@ export default {
         },
         allOffice() {
             allOffice().then((res) => {
-                this.optionsList['officeId'] = res.queryResult.list.map((el) => ({ label: el.officeName, value: el.officeId }));
+                this.optionsList['officeName'] = res.queryResult.list.map((el) => ({ label: el.officeName, value: el.officeId }));
             });
         },
         // 删除操作
@@ -167,22 +190,24 @@ export default {
         },
         // 保存编辑
         saveEdit() {
-            // this.$refs.form.validate(flag => {
-
-            // })
-            if (this.isAdd) {
-                addNurse(this.form).then(() => {
-                    this.closeDialog();
-                    this.$message.success(`添加成功`);
-                    this.$refs.nurseTable.queryTableData();
-                });
-            } else {
-                editNurse(this.form.nurseId, this.form).then((res) => {
-                    this.closeDialog();
-                    this.$message.success(`修改成功`);
-                    this.$refs.nurseTable.queryTableData();
-                });
-            }
+            this.$refs.form.validate(flag => {
+                if (flag) {
+                    if (this.isAdd) {
+                        addNurse(this.form).then(() => {
+                            this.closeDialog();
+                            this.$message.success(`添加成功`);
+                            this.$refs.nurseTable.queryTableData();
+                        });
+                    } else {
+                        editNurse(this.form.nurseId, this.form).then((res) => {
+                            this.closeDialog();
+                            this.$message.success(`修改成功`);
+                            this.$refs.nurseTable.queryTableData();
+                        });
+                    }
+                }
+            })
+            
         }
     }
 };

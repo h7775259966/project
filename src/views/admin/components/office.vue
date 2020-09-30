@@ -29,15 +29,23 @@
 			</template>
 		</e-table>
 		<el-dialog :title="isAdd ? '新增' : '编辑'" :visible.sync="editVisible" width="30%">
-			<el-form ref="form" :model="form" label-width="auto">	
-				<el-form-item :prop="item.prop" :label="item.label" v-for="item in editColList" :key="item.prop">
-					<el-input v-if="item.type === 'input'" v-model="form[item.prop]"></el-input>
-					<el-select v-if="item.type === 'select'" v-model="form[item.prop]">
-						<el-option v-for="o in (item.options || optionsList[item.prop])" :key="o.prop" :label="o.label" :value="o.value"></el-option>
+			<el-form ref="form" :model="form" label-width="auto" >
+				<el-form-item prop="officeName" label="科室名称"
+				:rules="[
+					{ required: true, message: '请输入科室名称', trigger: 'blur' },
+				]">
+					<el-input v-model="form.officeName"></el-input>
+				</el-form-item>
+				<el-form-item prop="departmentId" label="所属部门" >
+                    <el-select  v-model="form.departmentId">
+						<el-option v-for="o in optionsList.departmentId" :key="o.value" :label="o.label" :value="o.value"></el-option>
 					</el-select>
 				</el-form-item>
+				<el-form-item prop="remarks" label="备注">
+					<el-input v-model="form.remarks"></el-input>
+				</el-form-item>
 			</el-form>
-			<span slot="footer" class="dialog-footer">
+            <span slot="footer" class="dialog-footer">
 				<el-button @click="editVisible = false">取 消</el-button>
 				<el-button type="primary" @click="saveEdit">确 定</el-button>
 			</span>
@@ -114,23 +122,23 @@ export default {
         },
         // 保存编辑
         saveEdit() {
-			if(this.isAdd) {
-					addOffice(this.form).then(() => {
-						this.closeDialog();
-						this.$message.success(`添加成功`);
-						this.$refs.officeTable.queryTableData();
-					})
-				} else {
-					editOffice(this.form.officeId, this.form).then(res => {
-						this.closeDialog();
-						this.$message.success(`修改成功`);
-						this.$refs.officeTable.queryTableData();
-					})
+			this.$refs.form.validate(flag => {
+                if (flag) {
+					if(this.isAdd) {
+						addOffice(this.form).then(() => {
+							this.closeDialog();
+							this.$message.success(`添加成功`);
+							this.$refs.officeTable.queryTableData();
+						})
+					}else {
+						editOffice(this.form.officeId, this.form).then(res => {
+							this.closeDialog();
+							this.$message.success(`修改成功`);
+							this.$refs.officeTable.queryTableData();
+						})
+					}  
 				}
-				
-			// this.$refs.form.validate(flag => {
-				
-			// })
+			})
         },
     }
 };
