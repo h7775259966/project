@@ -17,6 +17,15 @@
             <el-tab-pane label="收集人管理" name="fifth">
                 <Collect />
             </el-tab-pane>
+            <el-tab-pane label="省级单位" name="sixth">
+                <Province />
+            </el-tab-pane>
+            <el-tab-pane label="市级单位" name="seventh">
+                <City />
+            </el-tab-pane>
+            <el-tab-pane label="区县级单位" name="eighth">
+                <Area />
+            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
@@ -27,6 +36,9 @@ import Department from './components/department';
 import Office from './components/office';
 import Nurse from './components/nurse';
 import Collect from './components/collect';
+import Province from './components/province';
+import City from './components/city';
+import Area from './components/area';
 import Button from '../components/button'
 export default {
     components: {
@@ -34,7 +46,10 @@ export default {
         Department,
         Office,
         Nurse,
-		Collect,
+        Collect,
+        Province,
+        City,
+        Area,
 		Button
     },
     data() {

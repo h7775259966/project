@@ -188,3 +188,81 @@ export function deleteCollect(id) {
 	})
 }
 
+
+//省级单位
+export const provinceURL = 'api/province/list/'
+// 新增
+export function addProvince(data) {
+	return request({
+		url: `api/province/add`,
+		method: 'post',
+		data
+	})
+}
+// 修改
+export function editProvince(id, data) {
+	return request({
+		url: `api/province/edit/${id}`,
+		method: 'put',
+		data
+	})
+}
+// 删除
+export function deleteProvince(id) {
+	return request({
+		url: `api/province/del/${id}`,
+		method: 'delete'
+	})
+}
+
+//市级单位
+export const cityURL = 'api/city/list/'
+// 新增
+export function addCity(data) {
+	return request({
+		url: `api/city/add`,
+		method: 'post',
+		data
+	})
+}
+// 修改
+export function editCity(id, data) {
+	return request({
+		url: `api/city/edit/${id}`,
+		method: 'put',
+		data
+	})
+}
+// 删除
+export function deleteCity(id) {
+	return request({
+		url: `api/city/del/${id}`,
+		method: 'delete'
+	})
+}
+
+//区县级单位
+export const zoneURL = 'api/zone/list/'
+// 新增
+export function addZone(data) {
+	return request({
+		url: `api/zone/add`,
+		method: 'post',
+		data
+	})
+}
+// 修改
+export function editZone(id, data) {
+	return request({
+		url: `api/zone/edit/${id}`,
+		method: 'put',
+		data
+	})
+}
+// 删除
+export function deleteZone (id) {
+	return request({
+		url: `api/zone/del/${id}`,
+		method: 'delete'
+	})
+}

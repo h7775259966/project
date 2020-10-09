@@ -21,6 +21,7 @@
     "mavon-editor": "^2.6.17",
     "moment": "^2.27.0",
     "register-service-worker": "^1.0.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "vue": "^2.6.10",
     "vue-cropperjs": "^3.0.0",
     "vue-quill-editor": "^3.0.6",

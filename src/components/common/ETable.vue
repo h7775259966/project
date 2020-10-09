@@ -159,7 +159,7 @@ export default {
             if (this.newSearch) {
                 val = filterEmpty(this.condition);
             }
-            console.log(val);
+            // console.log(val);
             this.$set(this, 'filterTbDataParams', val);
             this.currentPage = 1;
             this.queryTableData();
