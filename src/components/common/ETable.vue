@@ -42,7 +42,7 @@
         <!-- 表格区域 -->
         <el-table :data="tbData" ref="table">
             <el-table-column v-if="showSelectionCol" type="selection" width="50" fixed="left"> </el-table-column>
-            <el-table-column v-if="expand" type="expand">
+            <el-table-column v-if="expand" type="expand" >
                 <template slot-scope="props">
                     <slot name="expand" :rowData="props.row"></slot>
                 </template>
@@ -240,6 +240,11 @@ export default {
         }
         .searchArea {
             float: right;
+        }
+        .el-input--suffix {
+            .el-input__inner{
+                padding-right: 0px;
+            } 
         }
     }
     .pagination {

@@ -316,6 +316,10 @@ export default {
                         {
                             index: 'analysis',
                             title: '科室预警分析'
+                        },
+                        {
+                            index: 'point',
+                            title: '监测点预警分析'
                         }
                     ]
                 },

@@ -274,6 +274,11 @@ const router = new Router({
         component: () => import('../components/page/analysis/Analysis.vue'),
         meta: { title: '科室预警分析' }
       },
+      {
+        path: '/point',
+        component: () => import('../components/page/analysis/Point.vue'),
+        meta: { title: '监测点预警分析' }
+      },
       //视频监控
       {
         path: '/video',

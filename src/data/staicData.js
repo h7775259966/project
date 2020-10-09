@@ -1225,4 +1225,50 @@ export const dataDictionarys=[
 	}
 ]
 
+// 车辆定位 收集人
+export const CarCollector=[
+	{
+		label:'收集人',
+		prop:'collectName',
+		type:'input',
+	},
+	{
+		label:'收集人条形码',
+		prop:'collectCode',
+		type:'input',
+	},
+	{
+		label:'医院名称',
+		prop:'hospitalName',
+		type:'input',
+	},
+	{
+		label:'医院编号',
+		prop:'hospitalId',
+		type:'input',
+	},
+	{
+		label:'配置人',
+		prop:'status',
+		type:'input',
+	},
+	{
+		label: '配置时间',
+		prop: 'createDate',
+		// formatter: (r, w) => moment(r[w]).format('YYYY-MM-DD HH:mm:ss')
+		formatter: function (row, column) {
+            var date = row[column.property];
+            if (date == undefined) {
+                return '';
+            }
 
+            return moment(date).format('YYYY-MM-DD HH:mm:ss');
+        },
+	},
+
+	{
+		label:'操作',
+		prop:'operation',
+		type:'input',
+	},
+]

@@ -6,7 +6,7 @@
 			</template>
 			<template #expand="scope">
 				<el-form label-position="left"  class="demo-table-expand">
-					<el-form-item :label="item.label" v-for="item in expendList" :key="item.prop">
+					<el-form-item :label="item.label" v-for="item in expendList" :key="item.prop" >
 						<span>{{ scope.rowData[item.prop] }}</span>
 					</el-form-item>
 				</el-form>
