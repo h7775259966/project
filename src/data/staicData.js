@@ -1142,6 +1142,10 @@ export const trashOutTableCols = [
 		prop: 'outDetail',
 		type: 'input',
 	},
+	{
+		label: '操作',
+		prop: 'operation'
+	}
 ]
 
 //设备管理

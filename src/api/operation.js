@@ -1,14 +1,8 @@
 import request from '../utils/request'
 
 // 获取新增公告列表url
-export const trashOutTableURL = 'api/trashOut/search/'
+export const trashOutTableURL = 'api/trashOut/list/'
 
-export function gettrashOutList() {
-	return request({
-		url: `api/trashOut/search/1/1000`,
-		method: 'get',
-	})
-}
 //添加
 export function addtrashOut(data) {
 	return request({
