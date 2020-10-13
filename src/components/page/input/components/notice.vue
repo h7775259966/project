@@ -197,6 +197,7 @@ export default {
                 console.log(err);
             })
 		},
+		//发布操作
 		handlePublish(row, status) {
 			this.$confirm(`确定要${status === 2 ? '发布' : '取消发布'}吗？`, '提示', {
                 type: 'warning'

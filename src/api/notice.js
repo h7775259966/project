@@ -3,12 +3,12 @@ import request from '../utils/request'
 // 获取新增公告列表url
 export const addNoticeTableURL = 'api/notice/list/'
 
-export function getNoticeList() {
-	return request({
-		url: `api/notice/list/1/1000`,
-		method: 'get',
-	})
-}
+// export function getNoticeList() {
+// 	return request({
+// 		url: `api/notice/list/1/1000`,
+// 		method: 'get',
+// 	})
+// }
 //添加
 export function addNotice(data) {
 	return request({
