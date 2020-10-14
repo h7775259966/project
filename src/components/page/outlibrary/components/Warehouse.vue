@@ -54,13 +54,19 @@
                     <el-date-picker v-model="form.outTime" type="datetime" placeholder="选择日期时间"> </el-date-picker>
                 </el-form-item>
                 <el-form-item prop="company" label="转运公司" :rules="[{ required: true, message: '请输入转运公司', trigger: 'blur' }]">
-                    <el-input v-model="form.company"></el-input>
+                    <el-select  v-model="form.company">
+						<el-option v-for="o in optionsCompany" :key="o.id" :label="o.content" :value="o.content"></el-option>
+					</el-select>
                 </el-form-item>
                 <el-form-item prop="car" label="车牌号" :rules="[{ required: true, message: '请输入车牌号', trigger: 'blur' }]">
-                    <el-input v-model="form.car"></el-input>
+                    <el-select  v-model="form.car">
+						<el-option v-for="o in optionsCar" :key="o.id" :label="o.content" :value="o.content"></el-option>
+					</el-select>
                 </el-form-item>
                 <el-form-item prop="name" label="转运人" :rules="[{ required: true, message: '请输入转运人', trigger: 'blur' }]">
-                    <el-input v-model="form.name"></el-input>
+                    <el-select  v-model="form.name">
+						<el-option v-for="o in optionsName" :key="o.id" :label="o.content" :value="o.content"></el-option>
+					</el-select>
                 </el-form-item>
                 <el-form-item prop="outName" label="出库人" :rules="[{ required: true, message: '请输入出库人', trigger: 'blur' }]">
                     <el-input v-model="form.outName"></el-input>
@@ -82,7 +88,7 @@
 </template>
 
 <script>
-import { trashOutTableURL,deletetrashOut, changeStatus } from '@/api/operation';
+import { trashOutTableURL,deletetrashOut, changeStatus, allCar, allCompany, allName } from '@/api/operation';
 import ETable from '@/components/common/ETable';
 import { trashOutTableCols } from '@/data/staicData';
 export default {
@@ -108,7 +114,9 @@ export default {
                 	this.kind === 'check' ? { status: 2 } : {}
             },
             isAdd: true,
-            optionsList: {},
+            optionsCar: {},
+            optionsCompany: {},
+            optionsName: {},
             customSearchList: [
                 {
                     label: '出库状态',
@@ -138,8 +146,31 @@ export default {
         editColList() {
             return trashOutTableCols.filter((el) => el.edit);
         }
-    },
+	},
+	mounted() {
+		this.allCar();
+		this.allCompany();
+		this.allName();
+	},
     methods: {
+		//获取所有车牌号
+		allCar() {
+			allCar().then(res => {
+				this.optionsCar = res.queryResult.list;
+			})
+		},
+		//获取所有转运公司
+		allCompany() {
+			allCompany().then(res => {
+				this.optionsCompany = res.queryResult.list;
+			})
+		},
+		//获取所有转运人
+		allName() {
+			allName().then(res => {
+				this.optionsName = res.queryResult.list;	
+			})
+		},
         // 删除操作
         handleDelete(row) {
             this.$confirm('确定要删除吗？', '提示', {
@@ -181,16 +212,17 @@ export default {
         },
         // 保存编辑
         saveEdit() {
-            changeStatus(this.form.trashOutId, this.form).then((res) => {
-				this.closeDialog();
-				this.$message.success('出库成功');
-                this.$refs.collectTable.queryTableData();
-            });
-           
+			this.$refs.form.validate(flag => {
+                if (flag) {
+					changeStatus(this.form.trashOutId, this.form).then((res) => {
+						this.closeDialog();
+						this.$message.success('出库成功');
+						this.$refs.collectTable.queryTableData();
+					});
+				}
+			})  
         }
     }
 };
 </script>
 
-<style lang="less" scoped>
-</style> 

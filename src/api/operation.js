@@ -18,3 +18,24 @@ export function changeStatus(id,data) {
 		data
 	})
 }
+// 获取所有车牌号
+export function allCar() {
+	return request({
+		url: `api/trashOutMessage/allcar`,
+		method: 'get'
+	})
+}
+// 获取所有转运公司
+export function allCompany() {
+	return request({
+		url: `api/trashOutMessage/allcompany`,
+		method: 'get'
+	})
+}
+// 获取所有转运人
+export function allName() {
+	return request({
+		url: `api/trashOutMessage/allname`,
+		method: 'get'
+	})
+}

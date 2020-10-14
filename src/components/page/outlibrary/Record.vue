@@ -18,6 +18,7 @@
                 >
             </template>
 		</e-table>
+        <!-- 编辑框 -->
         <el-dialog :visible.sync="checkDialog" width="20%" center>
             <div v-if="checkContentData !== null">
                 <span style="font-size: 12px; color: #ccc000">出库重量明细:</span>
