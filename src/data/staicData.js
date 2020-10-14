@@ -1102,6 +1102,27 @@ export const trashCollectHistoryTableCols = [
 ]
 
 //信息维护
+export const maintenanceTableCols = [
+	{
+		label: '信息类型',
+		prop: 'type',
+		type: 'input',
+	},
+	{
+		label: '信息内容',
+		prop: 'content',
+		type: 'input',
+	},
+	{
+		label: '备注',
+		prop: 'remarks',
+		type: 'input',
+	},
+	{
+		label: '操作',
+		prop: 'operation'
+	}
+]
 //出库操作
 export const trashOutTableCols = [
 	{
@@ -1145,6 +1166,50 @@ export const trashOutTableCols = [
 	{
 		label: '操作',
 		prop: 'operation'
+	}
+]
+//出库记录
+export const trashOuthistoryTableCols = [
+	{
+		label: '出库时间',
+		prop: 'outTime',
+		formatter: function (row, column) {
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
+	},
+	{
+		label: '出库人',
+		prop: 'outName',
+		type: 'input',
+	},
+	{
+		label: '出库重量(kg)',
+		prop: 'outWeight',
+		type: 'input',
+	},
+	{
+		label: '转运公司',
+		prop: 'company',
+		type: 'input',
+	},
+	{
+		label: '车牌号',
+		prop: 'car',
+		type: 'input',
+	},
+	{
+		label: '转运人',
+		prop: 'name',
+		type: 'input',
+	},
+	{
+		label: '出库明细',
+		prop: 'outDetail',
+		type: 'input'
 	}
 ]
 
@@ -1198,6 +1263,79 @@ export const equipmentTableCols = [
 		label:'操作',
 		prop:'operation',
 	}
+]
+
+//医废补录
+export const replenishTableCols = [
+	{
+		label: '补录时间',
+		prop: 'replenishTime',
+		formatter: function (row, column) {
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
+	},
+	{
+		label: '收集时间',
+		prop: 'collectTime',
+		formatter: function (row, column) {
+			var date = row[column.property];
+			if (date == undefined) {
+				return '';
+			}
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		},
+	},
+	{
+		label: '科室名称',
+		prop: 'officeId',
+		type: 'input',
+		edit: true
+	},
+	
+	{
+		label: '护士名称',
+		prop: 'nurseId',
+		search: true,
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '收集人',
+		prop: 'collectId',
+		type: 'input',
+		edit: true
+	},
+	
+	{
+		label: '医废类型',
+		prop: 'trashId',
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '医废重量',
+		prop: 'replenishWeight',
+		type: 'input',
+	},
+	{
+		label: '医废数量',
+		prop: 'replenishNumber',
+		type: 'input',
+	},
+	{
+		label: '备注',
+		prop: 'remarks',
+		type: 'input',
+		edit: true
+	},
+	{
+		label:'操作',
+		prop:'operation',
+	},
 ]
 
 // 数据字典
