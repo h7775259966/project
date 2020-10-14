@@ -34,13 +34,7 @@ export function allHospital() {
 	})
 }
 
-// 获取省
-export function provinceList() {
-	return request({
-		url: `api/province/all`,
-		method: 'get'
-	})
-} 
+
 // 获取市
 export function cityList(id) {
 	return request({
@@ -188,32 +182,6 @@ export function deleteCollect(id) {
 	})
 }
 
-
-//省级单位
-export const provinceURL = 'api/province/list/'
-// 新增
-export function addProvince(data) {
-	return request({
-		url: `api/province/add`,
-		method: 'post',
-		data
-	})
-}
-// 修改
-export function editProvince(id, data) {
-	return request({
-		url: `api/province/edit/${id}`,
-		method: 'put',
-		data
-	})
-}
-// 删除
-export function deleteProvince(id) {
-	return request({
-		url: `api/province/del/${id}`,
-		method: 'delete'
-	})
-}
 
 //市级单位
 export const cityURL = 'api/city/list/'
