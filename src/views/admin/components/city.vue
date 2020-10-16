@@ -39,9 +39,6 @@
 				]">
 					<el-input v-model="form.cityNumber"></el-input>
 				</el-form-item>
-                <el-form-item prop="area" label="所在地">
-					<el-input v-model="form.area"></el-input>
-				</el-form-item> 
                 <el-form-item prop="principal" label="市级单位负责人" 
                 :rules="[
 					{ required: true, message: '请输入市级单位负责人', trigger: 'blur' },
@@ -67,7 +64,7 @@
 </template>
 
 <script>
-import { cityURL, editCity, addCity, deleteCity } from '@/api/admin';
+import { cityURL, editCity, addCity, deleteCity} from '@/api/admin';
 import ETable from '@/components/common/ETable';
 import {cityCols} from '@/data/staicData';
 export default {

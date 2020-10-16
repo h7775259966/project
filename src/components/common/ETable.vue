@@ -11,8 +11,8 @@
                         <el-form-item :prop="item.prop" :label="item.label">
                             <el-input v-if="item.type === 'input'" v-model="condition[item.prop]" 
 							:placeholder="'请输入' + item.label"  clearable />
-                            <el-select v-else-if="item.type === 'select'" clearable v-model="condition[item.prop]">
-                                <el-option v-for="jtem in item.options" :key="jtem.value" :label="jtem.label" :value="jtem.value" 
+                            <el-select v-else-if="item.type === 'select'" v-model="condition[item.prop]" clearable>
+                                <el-option v-for="jtem in item.rotate ? optionRotateList[item.prop] : item.options" :key="item.rotate ? jtem[item.optionLabel] : jtem.value" :label="item.rotate ? jtem[item.optionLabel] : jtem.label" :value="item.rotate ? jtem[item.optionValue] : jtem.value" 
 								:placeholder="'请输入' + item.label"/>
                             </el-select>
                             <el-date-picker
@@ -20,14 +20,18 @@
                                 :key="index"
                                 v-model="condition[item.prop]"
                                 type="datetime"
-                                value-format="yyyy-MM-dd"
+                                value-format="yyyy-MM-dd hh:mm:ss"
                                 :placeholder="'请选择' + item.label"
                             />
                         </el-form-item>
-                    </el-col>
+					</el-col>
+					 <el-col :span="4" :offset="1">
+                        <slot name="customSearch" :customSearch="condition"></slot>
+                    </el-col> 
                     <el-col :span="2" :offset="1">
                         <el-form-item>
                             <el-button @click="searchParamsChange" type="primary">搜索</el-button>
+                            
                         </el-form-item>
                     </el-col> 
                 </el-row>
@@ -37,7 +41,8 @@
             <template v-else-if="showSearch">
                 <search-params class="searchArea" @change="searchParamsChange" :params="searchParamsConf"></search-params>
             </template>
-            
+			
+			
         </div>
         <!-- 表格区域 -->
         <el-table :data="tbData" ref="table">
@@ -136,7 +141,8 @@ export default {
             currentPage: 1,
             pageSize: 10,
             staticTablePageData: [],
-            filterTbDataParams: {}
+			filterTbDataParams: {},
+			optionRotateList: {}
         };
     },
     created() {
@@ -148,7 +154,16 @@ export default {
         searchParamsConf() {
             let list = this.customSearchList.length > 0 ? this.customSearchList : this.tableCols.filter((el) => el.search) || [];
             list.forEach((item) => {
-                this.$set(this.condition, item.prop, '');
+				this.$set(this.condition, item.prop, '');
+				if(item.rotate) {
+					// eslint-disable-next-line
+					item.rotateFn().then(res => {
+						this.$set(this.optionRotateList, item.prop, res.queryResult.list)
+						// this.optionRotateList.aaa = '111'
+						// this.optionRotateList[item.prop] = res.queryResult.list;
+						// console.log(res.queryResult.list)
+					})
+				}
             });
             return list;
             return this.customTime.length > 0 ? this.customSearchList : this.tableCols.filter((el) => el.search) || [];
@@ -159,7 +174,7 @@ export default {
             if (this.newSearch) {
                 val = filterEmpty(this.condition);
             }
-            // console.log(val);
+            console.log(val);
             this.$set(this, 'filterTbDataParams', val);
             this.currentPage = 1;
             this.queryTableData();

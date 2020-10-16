@@ -10,7 +10,19 @@
                         <span>{{ scope.rowData[item.prop] }}</span>
                     </el-form-item>
                 </el-form>
-            </template>
+			</template>
+            <template #hospitalId="scope">
+				{{scope.rowData.hospitalName}}
+			</template>
+			<template #customSearch="scope">
+				<el-form-item label="所属医院">
+                    <el-cascader
+                        @change="getOffice($event, scope.customSearch)"
+						:props="props"
+                        clearable
+                    ></el-cascader>
+                </el-form-item>
+			</template>
             <template #operation="scope">
                 <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.rowData)">编辑</el-button>
                 <el-button type="text" icon="el-icon-delete" class="red" @click="handleDelete(scope.rowData)">删除</el-button>
@@ -50,11 +62,11 @@
 				]">
 					<el-input v-model="form.nurseCode"></el-input>
 				</el-form-item>
-                <el-form-item  label="所属部门科室">
+                <el-form-item  label="所属医院" :props="props">
                     <el-cascader
-                        ref="office"
                         @change="getOffice"
                         :props="props"
+                        clearable
                     ></el-cascader>
                 </el-form-item>
 				<el-form-item prop="remarks" label="备注">
@@ -70,7 +82,7 @@
 </template>
 
 <script>
-import { nurseTableURL, editNurse, addNurse, deleteNurse, allDepartment, allOffice, getOfficeById } from '@/api/admin';
+import { nurseTableURL, editNurse, addNurse, deleteNurse, allDepartment, allOffice, getOfficeById, allHospital, getDepByHosp } from '@/api/admin';
 import ETable from '@/components/common/ETable';
 import { nurseTableCols } from '@/data/staicData';
 let id = 0;
@@ -88,31 +100,43 @@ export default {
             },
             offices: [],
             isAdd: true,
-            optionsList: {},
+			optionsList: {},
             props: {
                 lazy: true,
                 lazyLoad: (node, resolve) => {
                     const { level, value } = node;
-                    let nodes = [];
-                    if (level === 0) {
-                        nodes = this.optionsList['departmentName'].map((item) => {
-                            return {
-                                label: item.label,
-                                value: item.value,
-                                leaf: false
-                            };
-                        });
-                        resolve(nodes);
-                    }
+					let nodes = [];
+					if(level === 0) {
+						allHospital().then(res => {
+							nodes = res.queryResult.list.map((item) => {
+								return {
+									label: item.hospitalName,
+									value: {hospitalId: item.hospitalId},
+									leaf: false
+								};
+							});
+							resolve(nodes);
+						})
+					}
                     if (level === 1) {
-                        getOfficeById(value).then((res) => {
+                       getDepByHosp(value.hospitalId).then((res) => {
+                            nodes = res.queryResult.list.map((item) => {
+                                return {
+                                    label: item.departmentName,
+                                    value: {departmentId: item.departmentId},
+                                    leaf: false
+                                };
+                            });
+                            resolve(nodes);
+                        });
+                    }
+                    if (level === 2) {
+                        getOfficeById(value.departmentId).then((res) => {
                             this.offices = res.queryResult.list;
                             nodes = res.queryResult.list.map((item) => {
                                 return {
                                     label: item.officeName,
-                                    value: item.officeId,
-                                    departmentId: item.departmentId,
-                                    departmentName: item.departmentName,
+                                    value: {officeId: item.officeId},
                                     leaf: true
                                 };
                             });
@@ -137,13 +161,16 @@ export default {
     mounted() {
         this.allDepartment();
         this.allOffice();
-        // console.log( this.optionsList)
     },
     methods: {
-        getOffice(v) {
-            const ite = this.offices.filter((item) => v[1] === item.officeId);
-            const { remarks, ...rest } = ite[0];
-            Object.assign(this.form, rest);
+        getOffice(v, c) {
+			if(c) {
+				Object.assign(c, ...v)
+				return;
+			}
+            // const ite = this.offices.filter((item) => v[1] === item.officeId);
+            // const { remarks, ...rest } = ite[0];
+            Object.assign(this.form, ...v);
         },
         allDepartment() {
             allDepartment().then((res) => {

@@ -11,6 +11,9 @@
 					</el-form-item>
 				</el-form>
 			</template>
+			<template #hospitalId="scope">
+				{{scope.rowData.hospitalName}}
+			</template>
 			<template #operation="scope">
 				<el-button
 					type="text"
@@ -27,11 +30,24 @@
 		</e-table>
 		<el-dialog :title="isAdd ? '新增' : '编辑'" :visible.sync="editVisible" width="30%">
 			<el-form ref="form" :model="form" label-width="80px">
+				<el-form-item prop="hospitalId" label="所属医院" :rules="[
+					{ required: true, message: '请选择所属医院', trigger: 'blur' },
+				]">
+                    <el-select  v-model="form.hospitalId" clearable>
+						<el-option v-for="o in optionsList.hospitalId" :key="o.value" :label="o.label" :value="o.value"></el-option>
+					</el-select>
+				</el-form-item>
 				<el-form-item prop="departmentName" label="部门名称"
 				:rules="[
 					{ required: true, message: '请输入部门名称', trigger: 'blur' },
 				]">
 					<el-input v-model="form.departmentName"></el-input>
+				</el-form-item>
+				<el-form-item prop="number" label="部门编号"
+				:rules="[
+					{ required: true, message: '请输入部门编号', trigger: 'blur' },
+				]">
+					<el-input v-model="form.number" type="number"  placeholder="请输入数字"  @keyup.native="proving($event)" min="1"></el-input>
 				</el-form-item>
 				<el-form-item prop="remarks" label="备注">
 					<el-input v-model="form.remarks"></el-input>
@@ -47,7 +63,7 @@
 </template>
 
 <script>
-import { departmentTableURL, editDepartment, addDepartment, deleteDepartment } from '@/api/admin';
+import { departmentTableURL, editDepartment, addDepartment, deleteDepartment, allHospital } from '@/api/admin';
 import ETable from '@/components/common/ETable';
 import {departmentTableCols} from '@/data/staicData';
 export default {
@@ -62,7 +78,8 @@ export default {
 			dataOrigin: {
 				url: departmentTableURL
 			},
-			isAdd: true
+			isAdd: true,
+			optionsList: {}
         };
     },
 	computed: {
@@ -76,7 +93,23 @@ export default {
 			return departmentTableCols.filter(el => el.edit);
 		}
 	},
+	mounted() {
+		this.allHospital();
+	},
     methods: {
+		allHospital() {
+			allHospital().then(res => {
+				this.optionsList['hospitalId'] = res.queryResult.list.map(el => ({label: el.hospitalName, value: el.hospitalId}));
+			})
+		},
+		//部门编号input操作
+		proving(e) {
+            let boolean = new RegExp('^[1-9][0-9]*$').test(e.target.value);
+            if (!boolean) {
+                this.$message.warning('请输入数字');
+                e.target.value = ' ';
+            }
+        },
         // 删除操作
         handleDelete(row) {
             this.$confirm('确定要删除吗？', '提示', {

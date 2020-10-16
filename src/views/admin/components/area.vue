@@ -11,6 +11,9 @@
 					</el-form-item>
 				</el-form>
 			</template>
+			<template #cityId="scope">
+				{{scope.rowData.cityName}}
+			</template>
 			<template #operation="scope">
 				<el-button
 					type="text"
@@ -27,6 +30,13 @@
 		</e-table>
 		<el-dialog :title="isAdd ? '新增' : '编辑'" :visible.sync="editVisible" width="30%">
 			<el-form ref="form" :model="form" label-width="auto">
+				<el-form-item prop="cityId" label="所属市级" :rules="[
+					{ required: true, message: '请选择所属市', trigger: 'blur' },
+				]">
+                    <el-select  v-model="form.cityId" clearable>
+						<el-option v-for="o in optionsList.cityId" :key="o.value" :label="o.label" :value="o.value"></el-option>
+					</el-select>
+				</el-form-item>
 				<el-form-item prop="zoneName" label="区县级单位名称"
 				:rules="[
 					{ required: true, message: '请输入区县级单位名称', trigger: 'blur' },
@@ -38,9 +48,6 @@
 					{ required: true, message: '请输入区县级单位编号', trigger: 'blur' },
 				]">
 					<el-input v-model="form.zoneNumber"></el-input>
-				</el-form-item>
-                <el-form-item prop="area" label="所在地">
-					<el-input v-model="form.area"></el-input>
 				</el-form-item>
                 <el-form-item prop="principal" label="区县级单位负责人" 
                 :rules="[
@@ -67,7 +74,7 @@
 </template>
 
 <script>
-import { zoneURL, editZone, addZone, deleteZone } from '@/api/admin';
+import { zoneURL, editZone, addZone, deleteZone, allCity} from '@/api/admin';
 import ETable from '@/components/common/ETable';
 import {zoneCols} from '@/data/staicData';
 export default {
@@ -82,7 +89,8 @@ export default {
 			dataOrigin: {
 				url: zoneURL
 			},
-			isAdd: true
+			isAdd: true,
+			optionsList: {}
         };
     },
 	computed: {
@@ -96,7 +104,17 @@ export default {
 			return zoneCols.filter(el => el.edit);
 		}
 	},
+	mounted() {
+		this.allCity();
+	},
     methods: {
+		//获取所有市
+		allCity() {
+			allCity().then(res => {
+				console.log(res)
+				this.optionsList['cityId'] = res.queryResult.list.map(el => ({label: el.cityName, value: el.cityId}));
+			})
+		},
         // 删除操作
         handleDelete(row) {
             this.$confirm('确定要删除吗？', '提示', {

@@ -3,7 +3,16 @@
         <e-table ref="hospTable" :dataOrigin="dataOrigin" :tableCols="tableColList" :showOperation="true" :expand="true" new-search>
             <template #operationArea>
                 <el-button type="primary" @click="add">新增</el-button>
-            </template>
+			</template>
+			<template #customSearch="scope">
+				<el-form-item label="所属区">
+                    <el-cascader
+                        @change="getZone($event, scope.customSearch)"
+						:props="zoneProps"
+                        clearable
+                    ></el-cascader>
+                </el-form-item>
+			</template>
             <template #expand="scope" >
                 <el-form label-position="left" class="demo-table-expand">
                     <el-form-item :label="item.label" v-for="item in expendList" :key="item.prop">
@@ -32,14 +41,14 @@
                 >
                     <el-input v-model="form.hospitalName"></el-input>
 				</el-form-item>
-				<!-- <el-form-item prop="hospitalNumber"
+				<el-form-item prop="zoneId"
                     label="医院区域">
 					<el-cascader
-						ref="office"
-						@change="getOffice"
-						:props="props"
+						ref="getZone"
+						@change="getZone"
+						:props="zoneProps"
 					></el-cascader>
-				</el-form-item> -->
+				</el-form-item>
                 <el-form-item
                     prop="hospitalNumber"
                     label="医院编号"
@@ -103,7 +112,7 @@
 </template>
 
 <script>
-import { hospitalTableURL, editHospital, addHospital, deleteHospital, cityList, zoneList } from '@/api/admin';
+import { hospitalTableURL, editHospital, addHospital, deleteHospital, cityList, cityAll, zoneList } from '@/api/admin';
 import ETable from '@/components/common/ETable';
 import { hospitalTableCols } from '@/data/staicData';
 export default {
@@ -118,50 +127,37 @@ export default {
             form: {
 				
 			},
-			props: {
-				// lazy: true,
-				// lazyLoad: (node, resolve) => {
-				// 	const { level, value } = node;
-				// 	let nodes = [];
-				// 	if (level === 0) {
-				// 		provinceList(value).then((res) => {
-				// 			nodes = res.queryResult.list.map((item) => {
-				// 				return {
-				// 					label: item.area,
-				// 					value: {provinceId: item.provinceId},
-				// 					leaf: false
-				// 				};
-				// 			});
-				// 			resolve(nodes);
-				// 		});
-				// 		resolve(nodes);
-				// 	}
-				// 	if (level === 1) {
-				// 		cityList(value.provinceId).then((res) => {
-				// 			nodes = res.queryResult.list.map((item) => {
-				// 				return {
-				// 					label: item.area,
-				// 					value:{cityId: item.cityId},
-				// 					leaf: false
-				// 				};
-				// 			});
-				// 			resolve(nodes);
-				// 		});
-				// 	}
-				// 	if (level === 2) {
-				// 		zoneList(value.cityId).then((res) => {
-				// 			nodes = res.queryResult.list.map((item) => {
-				// 				return {
-				// 					label: item.area,
-				// 					value: {zoneId: item.zoneId},
-				// 					leaf: true
-				// 				};
-				// 			});
-				// 			resolve(nodes);
-				// 		});
-				// 	}
-				// }
-			},
+			zoneProps: {
+                lazy: true,
+                lazyLoad: (node, resolve) => {
+                    const { level, value } = node;
+					let nodes = [];
+                    if (level === 0) {
+						cityAll().then(res => {
+							nodes = res.queryResult.list.map((item) => {
+								return {
+									label: item.cityName,
+									value: {cityId: item.cityId},
+									leaf: false
+								};
+							});
+							resolve(nodes);
+						})
+                    }
+                    if (level === 1) {
+                        zoneList(value.cityId).then((res) => {
+                            nodes = res.queryResult.list.map((item) => {
+                                return {
+                                    label: item.zoneName,
+                                    value: {zoneId: item.zoneId},
+                                    leaf: true
+                                };
+                            });
+                            resolve(nodes);
+                        });
+                    }
+                }
+            },
             dataOrigin: {
                 url: hospitalTableURL
             },
@@ -186,7 +182,8 @@ export default {
                     label: '民营',
                     value: '2'
                 }
-            ]
+			],
+			cityLists: []
         };
     },
     
@@ -203,9 +200,16 @@ export default {
         },
 	},
 	created() {
-		
 	},
     methods: {
+		getZone(v, c) {
+			if(c) {
+				Object.assign(c, ...v)
+				return
+			}
+			 Object.assign(this.form, ...v);
+			// this.form.zoneId = v.filter(el => el.zoneId)[0]['zoneId']
+		},
 		// getOffice(v) {
         //     Object.assign(this.form, ...v);
         // },

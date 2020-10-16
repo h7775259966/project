@@ -41,6 +41,11 @@ export function cityList(id) {
 		url: `api/city/findByProvinceId/${id}`
 	})
 }
+export function cityAll() {
+	return request({
+		url: 'api/city/all'
+	})
+}
 // 获取区
 export function zoneList(id) {
 	return request({
@@ -71,6 +76,13 @@ export function deleteDepartment(id) {
 	return request({
 		url: `api/department/del/${id}`,
 		method: 'delete'
+	})
+}
+// 通过医院查部门
+export function getDepByHosp(hospitalId) {
+	return request({
+		url: `api/department/findByHospitalId/${hospitalId}`,
+		method: 'get'
 	})
 }
 // 所有部门
@@ -232,5 +244,12 @@ export function deleteZone (id) {
 	return request({
 		url: `api/zone/del/${id}`,
 		method: 'delete'
+	})
+}
+//获取所有市
+export function allCity() {
+	return request({
+		url: `api/city/all/`,
+		method: 'get'
 	})
 }

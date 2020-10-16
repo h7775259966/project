@@ -122,12 +122,30 @@ export const hospitalTableCols = [
 		prop: 'operation'
 	}
 ]
+import {allHospital} from '../api/admin';
 export const departmentTableCols = [
 	{
 		label: '部门名称',
 		prop: 'departmentName',
 		search: true,
 		type: 'input',
+		edit: true
+	},
+	{
+		label: '部门编号',
+		prop: 'number',
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '所属医院',
+		prop: 'hospitalId',
+		search: true,
+		type: 'select',
+		rotate: true,
+		rotateFn: allHospital,
+		optionValue: 'hospitalId',
+		optionLabel: 'hospitalName',
 		edit: true
 	},
 	{
@@ -160,6 +178,18 @@ export const officeTableCols = [
 		label: '科室名称',
 		prop: 'officeName',
 		search: true,
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '科室编号',
+		prop: 'number',
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '所属医院',
+		prop: 'hospitalId',
 		type: 'input',
 		edit: true
 	},
@@ -206,6 +236,12 @@ export const nurseTableCols = [
 		label: '护士条形码',
 		prop: 'nurseCode',
 		search: true,
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '所属医院',
+		prop: 'hospitalId',
 		type: 'input',
 		edit: true
 	},
@@ -309,18 +345,6 @@ export const cityCols = [
 		edit: true
 	},
 	{
-		label: '所在地',
-		prop: 'area',
-		type: 'input',
-		edit: true
-	},
-	{
-		label: '等级',
-		prop: 'grade',
-		type: 'input',
-		edit: true
-	},
-	{
 		label: '市级单位负责人',
 		prop: 'principal',
 		type: 'input',
@@ -379,14 +403,8 @@ export const zoneCols = [
 		edit: true
 	},
 	{
-		label: '所在地',
-		prop: 'area',
-		type: 'input',
-		edit: true
-	},
-	{
-		label: '等级',
-		prop: 'grade',
+		label: '所属市',
+		prop: 'cityId',
 		type: 'input',
 		edit: true
 	},
