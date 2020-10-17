@@ -111,7 +111,7 @@ export default {
 		//获取所有市
 		allCity() {
 			allCity().then(res => {
-				console.log(res)
+				// console.log(res)
 				this.optionsList['cityId'] = res.queryResult.list.map(el => ({label: el.cityName, value: el.cityId}));
 			})
 		},

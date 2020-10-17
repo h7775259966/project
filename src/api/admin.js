@@ -253,3 +253,24 @@ export function allCity() {
 		method: 'get'
 	})
 }
+
+export function getselectCZList() {
+	return request({
+		url: 'api/city/selectCZ',
+		method: 'get'
+	})
+}
+
+export function getselectHDList() {
+	return request({
+		url: 'api/city/selectHD',
+		method: 'get'
+	})
+}
+
+export function getselectHDOList() {
+	return request({
+		url: 'api/city/selectHDO',
+		method: 'get'
+	})
+}

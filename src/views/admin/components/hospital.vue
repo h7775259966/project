@@ -11,7 +11,7 @@
 						:props="zoneProps"
                         clearable
                     ></el-cascader>
-                </el-form-item>
+				</el-form-item>
 			</template>
             <template #expand="scope" >
                 <el-form label-position="left" class="demo-table-expand">
@@ -41,14 +41,13 @@
                 >
                     <el-input v-model="form.hospitalName"></el-input>
 				</el-form-item>
-				<el-form-item prop="zoneId"
-                    label="医院区域">
-					<el-cascader
-						ref="getZone"
-						@change="getZone"
-						:props="zoneProps"
-					></el-cascader>
-				</el-form-item>
+				<el-form-item label="医院区域" prop="cascaderList" :rules="[{required: true, message: '请选择区域', trigger: 'blue'}]">
+                    <el-cascader
+						:options="optionList"
+						v-model="form.cascaderList"
+                        clearable
+                    ></el-cascader>
+                </el-form-item>
                 <el-form-item
                     prop="hospitalNumber"
                     label="医院编号"
@@ -97,6 +96,15 @@
                 <el-form-item prop="remarks" label="备注">
                     <el-input v-model="form.remarks"></el-input>
                 </el-form-item>
+                <el-form-item prop="hospitalUrl" label="医院服务器地址">
+                    <el-input v-model="form.hospitalUrl"></el-input>
+                </el-form-item>
+                <el-form-item prop="supervisionName" label="监督单位服务器名称">
+                    <el-input v-model="form.supervisionName"></el-input>
+                </el-form-item>
+                <el-form-item prop="supervisionUrl" label="监督单位服务器地址">
+                    <el-input v-model="form.supervisionUrl"></el-input>
+                </el-form-item>
                 <el-form-item prop="picture" label="图片">
                     <el-upload v-model="form.picture" action="https://jsonplaceholder.typicode.com/posts/" :limit="1">
                         <el-button size="small" type="primary">点击上传</el-button>
@@ -112,9 +120,10 @@
 </template>
 
 <script>
-import { hospitalTableURL, editHospital, addHospital, deleteHospital, cityList, cityAll, zoneList } from '@/api/admin';
+import { hospitalTableURL, editHospital, addHospital, deleteHospital, cityList, cityAll, zoneList, getselectCZList } from '@/api/admin';
 import ETable from '@/components/common/ETable';
 import { hospitalTableCols } from '@/data/staicData';
+import {transFormArray2Object,transFormObject2Array}from '../../../utils/index.js'
 export default {
     components: {
         ETable
@@ -125,7 +134,7 @@ export default {
             tableData: [],
             editVisible: false,
             form: {
-				
+				cascaderList: [],
 			},
 			zoneProps: {
                 lazy: true,
@@ -183,7 +192,8 @@ export default {
                     value: '2'
                 }
 			],
-			cityLists: []
+			cityLists: [],
+			optionList: []
         };
     },
     
@@ -200,14 +210,24 @@ export default {
         },
 	},
 	created() {
+		this.getselectCZList()
 	},
     methods: {
+		getselectCZList() {
+			getselectCZList().then(res => {
+				this.optionList = res.list
+			})
+		},
 		getZone(v, c) {
+			if(v.length === 0) {
+				delete c.cityId;
+				delete c.zoneId;
+				return
+			}
 			if(c) {
 				Object.assign(c, ...v)
 				return
 			}
-			 Object.assign(this.form, ...v);
 			// this.form.zoneId = v.filter(el => el.zoneId)[0]['zoneId']
 		},
 		// getOffice(v) {
@@ -247,7 +267,7 @@ export default {
         // 编辑操作
         handleEdit(row) {
             this.isAdd = false;
-            this.form = row;
+            this.form = transFormObject2Array(row, ['cityId', 'zoneId']);
             this.editVisible = true;
         },
         // 保存编辑
@@ -255,13 +275,13 @@ export default {
             this.$refs.form.validate((flag) => {
                 if (flag) {
                     if (this.isAdd) {
-                        addHospital(this.form).then(() => {
+                        addHospital(transFormArray2Object(this.form, ['cityId', 'zoneId'])).then(() => {
                             this.closeDialog();
                             this.$message.success(`添加成功`);
                             this.$refs.hospTable.queryTableData();
                         });
                     } else {
-                        editHospital(this.form.hospitalId, this.form).then((res) => {
+                        editHospital(this.form.hospitalId, transFormArray2Object(this.form, ['cityId', 'zoneId'])).then((res) => {
                             this.closeDialog();
                             this.$message.success(`修改成功`);
                             this.$refs.hospTable.queryTableData();
@@ -269,7 +289,8 @@ export default {
                     }
                 }
             });
-        }
+		},
+		
     }
 };
 </script>

@@ -11,7 +11,7 @@
                         <el-form-item :prop="item.prop" :label="item.label">
                             <el-input v-if="item.type === 'input'" v-model="condition[item.prop]" 
 							:placeholder="'请输入' + item.label"  clearable />
-                            <el-select v-else-if="item.type === 'select'" v-model="condition[item.prop]" clearable>
+                            <el-select v-else-if="item.type === 'select'" clearable v-model="condition[item.prop]">
                                 <el-option v-for="jtem in item.rotate ? optionRotateList[item.prop] : item.options" :key="item.rotate ? jtem[item.optionLabel] : jtem.value" :label="item.rotate ? jtem[item.optionLabel] : jtem.label" :value="item.rotate ? jtem[item.optionValue] : jtem.value" 
 								:placeholder="'请输入' + item.label"/>
                             </el-select>
@@ -31,7 +31,6 @@
                     <el-col :span="2" :offset="1">
                         <el-form-item>
                             <el-button @click="searchParamsChange" type="primary">搜索</el-button>
-                            
                         </el-form-item>
                     </el-col> 
                 </el-row>
@@ -41,8 +40,6 @@
             <template v-else-if="showSearch">
                 <search-params class="searchArea" @change="searchParamsChange" :params="searchParamsConf"></search-params>
             </template>
-			
-			
         </div>
         <!-- 表格区域 -->
         <el-table :data="tbData" ref="table">

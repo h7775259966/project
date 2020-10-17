@@ -16,6 +16,18 @@ export const hospitalTableCols = [
 		edit: true
 	},
 	{
+		label: '所属市',
+		prop: 'cityName',
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '所属区',
+		prop: 'zoneName',
+		type: 'input',
+		edit: true
+	},
+	{
 		label: '医院等级',
 		prop: 'grade',
 		type: 'input',
@@ -26,16 +38,6 @@ export const hospitalTableCols = [
 		prop: 'regime',
 		type: 'input',
 		edit: true,
-		regime: [
-			{
-				label: '公立',
-				value: '0'
-			},
-			{
-				label: '民营',
-				value: '1'
-			}
-		]
 	},
 	{
 		label: '医废处置方式',
@@ -116,7 +118,34 @@ export const hospitalTableCols = [
 		type: 'img',
 		edit: true
 	},
-
+	{
+		label: '医院id',
+		prop: 'hospitalId',
+		expand: true,
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '医院服务器地址',
+		prop: 'hospitalUrl',
+		expand: true,
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '监督单位服务器名称',
+		prop: 'supervisionName',
+		expand: true,
+		type: 'input',
+		edit: true
+	},
+	{
+		label: '监督单位服务器地址',
+		prop: 'supervisionUrl',
+		expand: true,
+		type: 'input',
+		edit: true
+	},
 	{
 		label: '操作',
 		prop: 'operation'

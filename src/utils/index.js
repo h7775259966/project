@@ -15,3 +15,19 @@ export const filterEmpty = (data, allowEmptyKeys) => {
         return rst;
     }
 }
+
+
+export const transFormArray2Object = (form, keys) => {
+	form.cascaderList.forEach((el, i) => {
+		form[keys[i]] = el
+	})
+	return form;
+}
+
+export const transFormObject2Array = (form, keys) => {
+	form.cascaderList = []
+	keys.forEach(el => {
+		form.cascaderList.push(form[el])
+	})
+	return form;
+}

@@ -54,11 +54,11 @@
 				]">
 					<el-input v-model="form.number" type="number"  placeholder="请输入数字"  @keyup.native="proving($event)" min="1"></el-input>
 				</el-form-item>
-				<el-form-item label="所属部门">
+				<el-form-item label="所属部门" prop="cascaderList" :rules="[{required: true, message: '请选择所属部门', trigger: 'blue'}]">
                     <el-cascader
-                        @change="getDep"
-						:props="depProps"
-						v-model="selectedOptions"
+						:options="optionList"
+						v-model="form.cascaderList"
+                        clearable
                     ></el-cascader>
                 </el-form-item>
 				<el-form-item prop="remarks" label="备注">
@@ -74,9 +74,10 @@
 </template>
 
 <script>
-import { officeTableURL, editOffice, addOffice, deleteOffice, allDepartment, allHospital, getDepByHosp } from '@/api/admin';
+import { officeTableURL, editOffice, addOffice, deleteOffice, allDepartment, allHospital, getDepByHosp, getselectHDList } from '@/api/admin';
 import ETable from '@/components/common/ETable';
 import {officeTableCols} from '@/data/staicData';
+import {transFormArray2Object,transFormObject2Array}from '../../../utils/index.js'
 export default {
 	components: {
 		ETable
@@ -85,7 +86,9 @@ export default {
         return {
             tableData: [],
             editVisible: false,
-            form: {},
+            form: {
+				cascaderList: []
+			},
 			dataOrigin: {
 				url: officeTableURL
 			},
@@ -119,12 +122,12 @@ export default {
                                     leaf: true
                                 };
                             });
-							resolve(nodes);
-						});
-					}
-					
-				}
-            },
+                            resolve(nodes);
+                        });
+                    }
+                }
+			},
+			optionList: []
         };
     },
 	computed: {
@@ -140,15 +143,24 @@ export default {
 	},
 	mounted() {
 		this.allDepartment();
+		this.getselectHDList();
 	},
     methods: {
+		getselectHDList() {
+			getselectHDList().then(res => {
+				this.optionList = res.list
+			})
+		},
 		getDep(v, c) {
+			if(v.length === 0) {
+				delete c.hospitalId;
+				delete c.departmentId;
+				return
+			}
 			if(c) {
 				Object.assign(c, ...v)
 				return
 			}
-			Object.assign(this.form, ...v);
-			
 			// this.form.departmentId = v.filter(el => el.departmentId)[0]['departmentId']
 		},
 		allDepartment() {
@@ -188,7 +200,7 @@ export default {
         // 编辑操作
         handleEdit(row) {
 			this.isAdd = false;
-            this.form = row;
+			this.form = transFormObject2Array(row, ['hospitalId', 'departmentId']);
             this.editVisible = true;
         },
         // 保存编辑
@@ -196,13 +208,13 @@ export default {
 			this.$refs.form.validate(flag => {
                 if (flag) {
 					if(this.isAdd) {
-						addOffice(this.form).then(() => {
+						addOffice(transFormArray2Object(this.form, ['hospitalId', 'departmentId'])).then(() => {
 							this.closeDialog();
 							this.$message.success(`添加成功`);
 							this.$refs.officeTable.queryTableData();
 						})
 					}else {
-						editOffice(this.form.officeId, this.form).then(res => {
+						editOffice(this.form.officeId, transFormArray2Object(this.form, ['hospitalId', 'departmentId'])).then(res => {
 							this.closeDialog();
 							this.$message.success(`修改成功`);
 							this.$refs.officeTable.queryTableData();
