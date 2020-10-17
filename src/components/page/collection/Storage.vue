@@ -7,11 +7,14 @@
                 </el-form-item>
             </el-form>
         </template>
+        <template #collectMethods="scope" >
+			{{scope.rowData.collectMethods === 1 ? '小车收集' : '补录'}}
+		</template>
     </e-table>
 </template>
 
 <script>
-import { trashPutTableURL, edittrashPut, addtrashPut, deletetrashPut, checktrashPut } from '@/api/storage';
+import { trashPutTableURL} from '@/api/storage';
 import { trashPutTableCols } from '@/data/staicData';
 import ETable from '@/components/common/ETable.vue';
 export default {

@@ -7,6 +7,9 @@
                 </el-form-item>
             </el-form>
         </template>
+        <template #collectMethods="scope" >
+			{{scope.rowData.collectMethods === 1 ? '小车收集' : '补录'}}
+		</template>
     </e-table>
 </template>
 
@@ -70,17 +73,7 @@ export default {
     },
 
     methods: {
-        //下发按钮
-        Issue() {
-            this.$refs.form.validate((flag) => {
-                if (flag) {
-                    addExamine(this.form).then(() => {
-                        this.$message.success(`下发成功`);
-                        this.$router.push('/inspect');
-                    });
-                }
-            });
-        }
+        
     }
 };
 </script>

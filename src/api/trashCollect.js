@@ -1,7 +1,7 @@
 import request from '../utils/request'
 
 // 获取医废收集列表url
-export const trashCollectTableURL = 'api/trashCollect/list/'
+export const trashCollectTableURL = 'api/trashCollect/collectlist/'
 //添加
 export function addtrashCollect(data) {
 	return request({

@@ -979,7 +979,7 @@ export const trashPutTableCols = [
 	},
 	{
 		label: '入库时间',
-		prop: 'putInTime',
+		prop: 'collectTime',
 		formatter: function (row, column) {	
 			var date = row[column.property];
 			if (date == undefined) {

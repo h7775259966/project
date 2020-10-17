@@ -244,17 +244,15 @@ export default {
         handleDelete(row) {
             this.$confirm('确定要删除吗？', '提示', {
                 type: 'warning'
-            })
-                .then((falg) => {
-                    falg === 'confirm' &&
-                        deleteHospital(row.hospitalId).then(() => {
-                            this.$message.success('删除成功');
-                            this.$refs.hospTable.queryTableData();
-                        });
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+            }).then((falg) => {
+                falg === 'confirm' &&
+                    deleteHospital(row.hospitalId).then(() => {
+                        this.$message.success('删除成功');
+                        this.$refs.hospTable.queryTableData();
+                    });
+            }).catch((err) => {
+                console.log(err);
+            });
         },
         closeDialog() {
             this.editVisible = false;
